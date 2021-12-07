@@ -15,7 +15,13 @@ namespace SteeringBehaviors.SourceGeneration
         public SourceGenerator(FileWriter writer) => Writer = writer;
 
         // todo
-        public virtual Type[] InspectType() => new[] { typeof(Mover) };
+        public virtual Type[] InspectType()
+        {
+            return Assembly.GetAssembly(typeof(SourceGenerator))
+                           .GetTypes()
+                           .Where(type => type.TryGetCustomAttribute<GenerateMonoBehaviourAttribute>(out _))
+                           .ToArray();
+        }
 
         public virtual void HandleType(Type type)
         {
@@ -94,7 +100,14 @@ namespace Generated.{type.Namespace}
 
             foreach (ParameterInfo parameter in parameters)
             {
-                invocation.Append($"{parameter.Name}, ");
+                string parameterName = parameter.Name;
+
+                if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
+                {
+                    parameterName = $"GetComponent<{GetAliasName(parameter.ParameterType)}>()";
+                }
+
+                invocation.Append($"{parameterName}, ");
             }
 
             if (invocation.Length > 0)
@@ -111,16 +124,22 @@ namespace Generated.{type.Namespace}
 
             foreach (ParameterInfo parameter in parameters)
             {
-                fields.Append(
-                    $@"
+                if (!parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
+                {
+                    fields.Append(
+                        $@"
         [SerializeField] private {GetAliasName(parameter.ParameterType)} {parameter.Name};"
-                );
+                    );
+                }
             }
 
-            fields.Append(
-                @"
+            if (fields.Length > 0)
+            {
+                fields.Append(
+                    @"
 "
-            );
+                );
+            }
 
             return fields.ToString();
         }
@@ -131,7 +150,7 @@ namespace Generated.{type.Namespace}
             {
                 return type.Name;
             }
-            
+
             return type.FullName switch
             {
                 nameof(System) + "." + nameof(Boolean) => "string",

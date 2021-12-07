@@ -11,8 +11,7 @@ namespace SteeringBehaviors.Movement
         protected readonly float MaxSpeed;
         protected bool IsMoving = false;
         protected Vector3 Direction;
-        
-        
+
         public Mover(Transform movable, float maxSpeed)
         {
             Movable = movable;
@@ -46,18 +45,14 @@ namespace SteeringBehaviors.Movement
         public virtual void StopMoving() => IsMoving = false;
     }
 
-    // public sealed class MoverComponent : MonoBehaviour
-    // {
-    //     [SerializeField] private float _maxSpeed;
-    //     
-    //     public Mover Mover { get; private set; }
-    //
-    //     private void Awake()
-    //     {
-    //         Mover = new Mover(transform, _maxSpeed);
-    //     }
-    //
-    //     public async Task StartMoving(Vector2 direction) => await Mover.StartMoving(direction);
-    //     public void StopMoving() => Mover.StopMoving();
-    // }
+    public interface IMover
+    {
+        Task StartMoving(Vector3 direction);
+        Task StartMovingToPoint(Vector3 worldPoint);
+        Task StartWalking(Vector3 center, float radius);
+        Task StartEscapingFrom(Transform transform, float safeDistance);
+        Task Pursue(Transform transform, float lostDistance);
+        Task PursueWithTime(Transform transform, float time);
+        Task Pursue(Transform transform, float lostDistance, float time);
+    }
 }

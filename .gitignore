@@ -42,3 +42,6 @@ sysinfo.txt
 
 # Settings
 *.xml
+
+# Generated
+Generated/
