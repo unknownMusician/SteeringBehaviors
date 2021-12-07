@@ -1,0 +1,15 @@
+mtllib Custom.mtl
+o Obj
+g Custom
+vn 0 1 0
+vt 1 0
+v 0 0 0
+v 1 0 0
+v 0 1 0
+v 1 1 0
+usemtl M1
+f 1 3 2
+usemtl M2
+f 2 3 4
+usemtl M3
+f 1 2 3
