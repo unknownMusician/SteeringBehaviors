@@ -35,7 +35,7 @@ namespace SteeringBehaviors.Animals.Animals
         {
             while (_isAlive)
             {
-                _currentState = TryFindEnemies(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
+                _currentState = TryFindEntities(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
                 if (((AnimalState)_currentState).Equals(_lastState))
                 {
                     continue;
@@ -48,7 +48,7 @@ namespace SteeringBehaviors.Animals.Animals
             }
         }
         
-        private bool TryFindEnemies(out Transform[] enemies)
+        private bool TryFindEntities(out Transform[] enemies)
         {
             enemies = Physics.OverlapSphere(
                     _animalInfo.AnimalTransform.position, 

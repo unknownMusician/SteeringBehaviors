@@ -12,10 +12,10 @@ namespace SteeringBehaviors.Animals.States
         }
         public abstract void StartMoving();
 
-        public bool Equals(AnimalState otherAnimalState)
-        {
-            return AnimalInfo.EnemiesTransforms == otherAnimalState.AnimalInfo.EnemiesTransforms;
-        }
+        // public bool Equals(AnimalState otherAnimalState)
+        // {
+        //     return AnimalInfo.EnemiesTransforms == otherAnimalState.AnimalInfo.EnemiesTransforms;
+        // }
 
         public override bool Equals(object obj)
         {
