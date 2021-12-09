@@ -17,7 +17,7 @@ namespace SteeringBehaviors.Movement
             Movable = movable;
             MaxSpeed = maxSpeed;
         }
-
+        
         public virtual async Task StartMoving(Vector3 direction)
         {
             if (direction == Vector3.zero)
@@ -50,9 +50,15 @@ namespace SteeringBehaviors.Movement
         Task StartMoving(Vector3 direction);
         Task StartMovingToPoint(Vector3 worldPoint);
         Task StartWalking(Vector3 center, float radius);
+        
         Task StartEscapingFrom(Transform transform, float safeDistance);
+        Task StartEscapingFrom(Transform[] enemies, float safeDistance);
+        
         Task Pursue(Transform transform, float lostDistance);
         Task PursueWithTime(Transform transform, float time);
-        Task Pursue(Transform transform, float lostDistance, float time);
+        Task Pursue(Transform transform, float lostDistance, float time); 
+
+        void StopMoving();
+
     }
 }
