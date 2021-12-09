@@ -61,8 +61,6 @@
      <Compile Include="Assets\Scripts\SourceGeneration\SourceGeneratorInitializer.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\AttributeExtensions.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\FileWriter.cs" />
-     <Compile Include="Assets\Scripts\Movement\Test.cs" />
-     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\TestComponent.cs" />
      <Compile Include="Assets\Scripts\Movement\Rabbit.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

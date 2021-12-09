@@ -88,7 +88,12 @@ namespace Generated.{type.Namespace}
         private void Awake()
         {{
             {type.Name} = new {type.Name}({parameters});
-        }}
+        }}{(!typeof(IDisposable).IsAssignableFrom(type) ? string.Empty : $@"
+
+        private void OnDestroy()
+        {{
+            {type.Name}.Dispose();
+        }}")}
     }}
 }}
 ";
@@ -100,7 +105,12 @@ namespace Generated.{type.Namespace}
 
             foreach (ParameterInfo parameter in parameters)
             {
-                string parameterName = parameter.Name;
+                string parameterName = '_' + parameter.Name;
+
+                if (parameter.ParameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _))
+                {
+                    parameterName += '.' + parameter.ParameterType.Name;
+                }
 
                 if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
                 {
@@ -128,7 +138,7 @@ namespace Generated.{type.Namespace}
                 {
                     fields.Append(
                         $@"
-        [SerializeField] private {GetAliasName(parameter.ParameterType)} {parameter.Name};"
+        [SerializeField] private {GetAliasName(parameter.ParameterType)}{(parameter.ParameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _) ? "Component" : string.Empty)} _{parameter.Name};"
                     );
                 }
             }

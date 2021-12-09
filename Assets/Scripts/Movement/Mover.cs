@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
@@ -5,14 +6,14 @@ using UnityEngine;
 namespace SteeringBehaviors.Movement
 {
     [GenerateMonoBehaviour]
-    public class Mover
+    public class Mover : IDisposable
     {
         protected readonly Transform Movable;
         protected readonly float MaxSpeed;
         protected bool IsMoving = false;
         protected Vector3 Direction;
 
-        public Mover(Transform movable, float maxSpeed)
+        public Mover(Transform movable, float maxSpeed, Mover mover)
         {
             Movable = movable;
             MaxSpeed = maxSpeed;
@@ -43,6 +44,7 @@ namespace SteeringBehaviors.Movement
         }
 
         public virtual void StopMoving() => IsMoving = false;
+        public void Dispose() { }
     }
 
     public interface IMover
