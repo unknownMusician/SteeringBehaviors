@@ -14,7 +14,8 @@ namespace SteeringBehaviors.Animals.Rabbit.States
         
         public override void StartMoving()
         {
-            AnimalInfo.Mover.StartWalking(AnimalInfo.AnimalTransform.position, _rabbitSettings.RabbitDetectionRadius);
+            // AnimalInfo.Mover.WalkAsync(AnimalInfo.AnimalTransform.position, _rabbitSettings.RabbitDetectionRadius);
+            AnimalInfo.Mover.MoveAsync(AnimalInfo.AnimalTransform.forward); 
         }
     }
 }

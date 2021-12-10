@@ -25,7 +25,7 @@ namespace SteeringBehaviors.Animals.Wolf.States
                 // todo stop wolf moving of 2 sec
             }
             // todo continue pursue target
-            AnimalInfo.Mover.Pursue(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
+            // AnimalInfo.Mover.Pursue(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
         }
 
         private Transform FindNearestVictim()

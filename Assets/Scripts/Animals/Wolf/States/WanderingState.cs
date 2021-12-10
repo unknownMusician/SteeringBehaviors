@@ -13,7 +13,7 @@ namespace SteeringBehaviors.Animals.Wolf.States
         
         public override void StartMoving()
         {
-            AnimalInfo.Mover.StartWalking(AnimalInfo.AnimalTransform.position, _wolfSettings.WolfDetectionRadius);
+            // AnimalInfo.Mover.StartWalking(AnimalInfo.AnimalTransform.position, _wolfSettings.WolfDetectionRadius);
         }
     }
 }

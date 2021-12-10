@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using UnityEngine;
 

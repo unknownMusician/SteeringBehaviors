@@ -17,6 +17,8 @@ namespace SteeringBehaviors.Movement
 
         protected readonly SingleTokenCancellationGenerator CancellationGenerator;
 
+        private CancellationToken _currentCancellationToken;
+
         public Mover(Transform movable, float maxSpeed)
         {
             CancellationGenerator = new SingleTokenCancellationGenerator();
@@ -103,6 +105,7 @@ namespace SteeringBehaviors.Movement
         public virtual async Task MoveAsync(Func<Vector3> directionProvider, Func<bool> moveCondition)
         {
             CancellationToken cancellationToken = CancellationGenerator.New();
+            _currentCancellationToken = cancellationToken;
 
             while (!cancellationToken.IsCancellationRequested && moveCondition())
             {
@@ -117,6 +120,11 @@ namespace SteeringBehaviors.Movement
 
         public virtual void StopMoving() => CancellationGenerator.Cancel();
 
-        public virtual void Dispose() => CancellationGenerator.Dispose();
+        public virtual void Dispose()
+        {
+            CancellationGenerator.Cancel(); 
+
+            CancellationGenerator.Dispose();
+        }
     }
 }

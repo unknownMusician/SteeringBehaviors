@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.Animals.Rabbit.States;
@@ -5,10 +7,12 @@ using SteeringBehaviors.Animals.Settings;
 using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace SteeringBehaviors.Animals.Rabbit
 {
-    public sealed class Rabbit
+    [GenerateMonoBehaviour]
+    public sealed class Rabbit : IDisposable
     {
         private readonly AnimalState _wanderingState;
         private readonly AnimalState _escapingState;
@@ -18,10 +22,9 @@ namespace SteeringBehaviors.Animals.Rabbit
         private bool _isAlive = true;
         private readonly AnimalInfo _animalInfo;
         private readonly RabbitSettings _rabbitSettings;
-
         
         public Rabbit(
-            [FromThisObject] IMover mover,
+            [Inject(typeof(Mover))] IMover mover,
             [FromThisObject] Transform transform,
             RabbitSettings rabbitSettings)
         {
@@ -33,17 +36,21 @@ namespace SteeringBehaviors.Animals.Rabbit
             _lastState = _currentState = _wanderingState;
 
             SeekForEnemies();
+            _currentState.StartMoving();
         }
         private async Task SeekForEnemies()
         {
             while (_isAlive)
             {
                 _currentState = TryFindEnemies(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
+                // Debug.Log(_currentState.ToString());
                 if (_currentState.Equals(_lastState))
                 {
+                    await Task.Yield();
                     continue;
                 }
 
+                Debug.Log("CHANGE STATE");
                 _lastState = _currentState;
                 _currentState.StartMoving();
 
@@ -59,6 +66,11 @@ namespace SteeringBehaviors.Animals.Rabbit
                 .Select(collider => collider.transform)
                 .ToArray();
             return enemies.Any();
+        }
+
+        public void Dispose()
+        {
+            _isAlive = false;
         }
     }
 }
