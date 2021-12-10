@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\Animals\Settings\RabbitSettings.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\WolfSettings.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\DeerSettings.cs" />
+     <Compile Include="Assets\Scripts\Hunt\Killable.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Hunt\KillableComponent.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
