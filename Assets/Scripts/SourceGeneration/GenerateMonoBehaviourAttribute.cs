@@ -12,6 +12,14 @@ namespace SteeringBehaviors.SourceGeneration
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class FromThisObjectAttribute : PreserveAttribute { }
 
+    [AttributeUsage(AttributeTargets.Parameter)]
+    public sealed class InjectAttribute : PreserveAttribute
+    {
+        public readonly Type InjectedType;
+        
+        public InjectAttribute(Type injectedType) => InjectedType = injectedType;
+    }
+
     // public sealed class ComponentForAttribute : Attribute
     // {
     //     private readonly Type _type;

@@ -92,7 +92,7 @@ namespace SteeringBehaviors.Movement
 
                 Vector3 direction = new Vector3(directionXZ.x, 0.0f, directionXZ.y);
 
-                _info.Mover.StartMoving(direction);
+                _info.Mover.MoveAsync(direction);
             }
         }
 
@@ -108,7 +108,7 @@ namespace SteeringBehaviors.Movement
             public void Move()
             {
                 const float safeDistance = 10;
-                _info.Mover.StartEscapingFrom(_info.EnemyTransform, safeDistance);
+                _info.Mover.EscapeFromAsync(_info.EnemyTransform, safeDistance);
             }
         }
     }

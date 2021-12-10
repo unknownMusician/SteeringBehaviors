@@ -1,42 +1,105 @@
 ﻿#nullable enable
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using SteeringBehaviors.Movement;
 
 namespace SteeringBehaviors.SourceGeneration
 {
+    public class SourceGeneratorUtil
+    {
+        public virtual string GetAliasName(Type type) => GetAliasName(
+            type.FullName ?? throw new ArgumentException($"Cannot get FullName of type {type.Name}")
+        );
+
+        public virtual string GetAliasName(string typeFullName) => typeFullName switch
+        {
+            nameof(System) + "." + nameof(Boolean) => "string",
+            nameof(System) + "." + nameof(Byte) => "byte",
+            nameof(System) + "." + nameof(SByte) => "sbyte",
+            nameof(System) + "." + nameof(Char) => "char",
+            nameof(System) + "." + nameof(Decimal) => "decimal",
+            nameof(System) + "." + nameof(Double) => "double",
+            nameof(System) + "." + nameof(Single) => "float",
+            nameof(System) + "." + nameof(Int32) => "int",
+            nameof(System) + "." + nameof(UInt32) => "uint",
+            //nameof(System) + "." + nameof(IntPtr) => "nint",
+            //nameof(System) + "." + nameof(UIntPtr) => "nuint",
+            nameof(System) + "." + nameof(Int64) => "long",
+            nameof(System) + "." + nameof(UInt64) => "ulong",
+            nameof(System) + "." + nameof(Int16) => "short",
+            nameof(System) + "." + nameof(UInt16) => "ushort",
+            nameof(System) + "." + nameof(Object) => "object",
+            nameof(System) + "." + nameof(String) => "string",
+            _ => "global::" + typeFullName,
+        };
+    }
+
     public class SourceGenerator
     {
         protected readonly FileWriter Writer;
+        protected readonly SourceGeneratorUtil _util;
 
-        public SourceGenerator(FileWriter writer) => Writer = writer;
+        public SourceGenerator(FileWriter writer, SourceGeneratorUtil util)
+        {
+            Writer = writer;
+            _util = util;
+        }
 
         // todo
-        public virtual Type[] InspectType()
-        {
-            return Assembly.GetAssembly(typeof(SourceGenerator))
-                           .GetTypes()
-                           .Where(type => type.TryGetCustomAttribute<GenerateMonoBehaviourAttribute>(out _))
-                           .ToArray();
-        }
+        public virtual IEnumerable<Type> GetInspectedTypes(Assembly assembly) => assembly.GetTypes()
+            .Where(type => type.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _));
 
         public virtual void HandleType(Type type)
         {
             Writer.WriteAllText(Writer.GetFilePath(type, "Component"), GenerateMonoBehaviour(type));
         }
 
-        public virtual void Inspect()
+        public virtual void Inspect(Assembly assembly)
         {
-            foreach (Type type in InspectType())
+            foreach (Type type in GetInspectedTypes(assembly))
             {
-                if (type.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute attribute))
-                {
-                    HandleType(type);
-                }
+                HandleType(type);
             }
+        }
+
+        public virtual string GenerateMonoBehaviour(
+            string @namespace, string typeName, bool isDisposable, ParameterInfo[] fields,
+            ParameterInfo[] parameters
+        ) => GenerateMonoBehaviour(
+            @namespace,
+            typeName,
+            isDisposable,
+            GetParametersAsFields(fields),
+            GetParametersAsInvocationParameters(parameters)
+        );
+
+        public virtual string GenerateMonoBehaviour(
+            string @namespace, string typeName, bool isDisposable, string fields, string parameters
+        )
+        {
+            return $@"// Generated
+
+namespace Generated.{@namespace}
+{{
+    public sealed class {typeName}Component : global::UnityEngine.MonoBehaviour
+    {{{fields}
+        public global::{@namespace}.{typeName} {typeName} {{ get; private set; }}
+
+        private void Awake()
+        {{
+            {typeName} = new global::{@namespace}.{typeName}({parameters});
+        }}{(!isDisposable ? string.Empty : $@"
+
+        private void OnDestroy()
+        {{
+            {typeName}.Dispose();
+        }}")}
+    }}
+}}
+";
         }
 
         public virtual string GenerateMonoBehaviour(Type type)
@@ -48,14 +111,14 @@ namespace SteeringBehaviors.SourceGeneration
                 );
             }
 
-            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
+            if (string.IsNullOrEmpty(type.Namespace))
+            {
+                throw new NotImplementedException(
+                    $"Cannot generate MonoBehaviour for {type.Name} because it has no namespace."
+                );
+            }
 
-            // if (constructors.Any() && constructors.All(ctor => ctor.GetParameters().Length != 0))
-            // {
-            //     throw new ArgumentException(
-            //         $"Cannot generate MonoBehaviour for {type.Name} because it is has no public parameterless constructor."
-            //     );
-            // }
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
 
             if (constructors.Length > 1)
             {
@@ -71,32 +134,13 @@ namespace SteeringBehaviors.SourceGeneration
                 constructorParameters = constructors.First().GetParameters();
             }
 
-            string fields = GetParametersAsFields(constructorParameters);
-            string parameters = GetParametersAsInvocationParameters(constructorParameters);
-
-            return $@"// Generated
-
-using {type.Namespace};
-using UnityEngine;
-
-namespace Generated.{type.Namespace}
-{{
-    public sealed class {type.Name}Component : MonoBehaviour
-    {{{fields}
-        public {type.Name} {type.Name} {{ get; private set; }}
-
-        private void Awake()
-        {{
-            {type.Name} = new {type.Name}({parameters});
-        }}{(!typeof(IDisposable).IsAssignableFrom(type) ? string.Empty : $@"
-
-        private void OnDestroy()
-        {{
-            {type.Name}.Dispose();
-        }}")}
-    }}
-}}
-";
+            return GenerateMonoBehaviour(
+                type.Namespace!,
+                type.Name,
+                typeof(IDisposable).IsAssignableFrom(type),
+                constructorParameters,
+                constructorParameters
+            );
         }
 
         protected virtual string GetParametersAsInvocationParameters(ParameterInfo[] parameters)
@@ -105,19 +149,7 @@ namespace Generated.{type.Namespace}
 
             foreach (ParameterInfo parameter in parameters)
             {
-                string parameterName = '_' + parameter.Name;
-
-                if (parameter.ParameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _))
-                {
-                    parameterName += '.' + parameter.ParameterType.Name;
-                }
-
-                if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
-                {
-                    parameterName = $"GetComponent<{GetAliasName(parameter.ParameterType)}>()";
-                }
-
-                invocation.Append($"{parameterName}, ");
+                invocation.Append($"{GetParameterAsInvocationParameter(parameter)}, ");
             }
 
             if (invocation.Length > 0)
@@ -128,17 +160,48 @@ namespace Generated.{type.Namespace}
             return invocation.ToString();
         }
 
+        protected virtual string GetParameterAsInvocationParameter(ParameterInfo parameter)
+        {
+            string parameterName = '_' + parameter.Name;
+
+            Type parameterType = parameter.ParameterType;
+
+            if (parameter.TryGetCustomAttribute(out InjectAttribute? attribute))
+            {
+                if (!parameterType.IsInterface)
+                {
+                    throw new NotImplementedException(
+                        $"{parameterType.Name} cannot be injected as it is not an interface."
+                    );
+                }
+
+                parameterType = attribute!.InjectedType;
+            }
+
+            if (parameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _))
+            {
+                parameterName += '.' + parameterType.Name;
+            }
+
+            if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
+            {
+                parameterName = $"GetComponent<{_util.GetAliasName(parameterType)}>()";
+            }
+
+            return parameterName;
+        }
+
         protected virtual string GetParametersAsFields(ParameterInfo[] parameters)
         {
             var fields = new StringBuilder();
 
             foreach (ParameterInfo parameter in parameters)
             {
-                if (!parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
+                if (TryGetParameterAsField(parameter, out string? result))
                 {
                     fields.Append(
                         $@"
-        [SerializeField] private {GetAliasName(parameter.ParameterType)}{(parameter.ParameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _) ? "Component" : string.Empty)} _{parameter.Name};"
+        {result!}"
                     );
                 }
             }
@@ -154,35 +217,42 @@ namespace Generated.{type.Namespace}
             return fields.ToString();
         }
 
-        protected virtual string GetAliasName(Type type)
+        protected virtual bool TryGetParameterAsField(ParameterInfo parameter, out string? result)
         {
-            if (type.Namespace == nameof(UnityEngine))
+            if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
             {
-                return type.Name;
+                result = null;
+
+                return false;
             }
 
-            return type.FullName switch
+            Type parameterType = parameter.ParameterType;
+
+            if (parameter.TryGetCustomAttribute(out InjectAttribute? attribute))
             {
-                nameof(System) + "." + nameof(Boolean) => "string",
-                nameof(System) + "." + nameof(Byte) => "byte",
-                nameof(System) + "." + nameof(SByte) => "sbyte",
-                nameof(System) + "." + nameof(Char) => "char",
-                nameof(System) + "." + nameof(Decimal) => "decimal",
-                nameof(System) + "." + nameof(Double) => "double",
-                nameof(System) + "." + nameof(Single) => "float",
-                nameof(System) + "." + nameof(Int32) => "int",
-                nameof(System) + "." + nameof(UInt32) => "uint",
-                //nameof(System) + "." + nameof(IntPtr) => "nint",
-                //nameof(System) + "." + nameof(UIntPtr) => "nuint",
-                nameof(System) + "." + nameof(Int64) => "long",
-                nameof(System) + "." + nameof(UInt64) => "ulong",
-                nameof(System) + "." + nameof(Int16) => "short",
-                nameof(System) + "." + nameof(UInt16) => "ushort",
-                nameof(System) + "." + nameof(Object) => "object",
-                nameof(System) + "." + nameof(String) => "string",
-                null => throw new ArgumentException($"Cannot get FullName of type {type.Name}"),
-                _ => type.FullName,
-            };
+                if (!parameterType.IsInterface)
+                {
+                    throw new NotImplementedException(
+                        $"{parameterType.Name} cannot be injected as it is not an interface."
+                    );
+                }
+
+                parameterType = attribute!.InjectedType;
+            }
+
+            string typeFullName = parameterType.FullName
+                               ?? throw new ArgumentException($"Type {parameterType.Name} has no FullName.");
+
+            if (parameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _))
+            {
+                typeFullName = $"Generated.{typeFullName}Component";
+            }
+
+            typeFullName = _util.GetAliasName(typeFullName);
+
+            result = $"[global::UnityEngine.SerializeField] private {typeFullName} _{parameter.Name};";
+
+            return true;
         }
     };
 }
