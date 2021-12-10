@@ -52,30 +52,32 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Animals\States\Base\IState.cs" />
      <Compile Include="Assets\Scripts\Movement\Rabbit.cs" />
-     <Compile Include="Assets\Scripts\Animals\States\Base\AnimalState.cs" />
-     <Compile Include="Assets\Scripts\Animals\AnimalInfo.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\SourceGenerator.cs" />
      <Compile Include="Assets\Scripts\Import\ObjImportHelperWindow.cs" />
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\MoverComponent.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\GenerateMonoBehaviourAttribute.cs" />
      <Compile Include="Assets\Scripts\Movement\Test.cs" />
-     <Compile Include="Assets\Scripts\Animals\States\PursuitState.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\SourceGeneratorInitializer.cs" />
      <Compile Include="Assets\Scripts\Import\ObjImportHelper.cs" />
-     <Compile Include="Assets\Scripts\Animals\States\WanderingState.cs" />
      <Compile Include="Assets\Scripts\Movement\Mover.cs" />
-     <Compile Include="Assets\Scripts\Animals\Animals\Rabbit.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\FileWriter.cs" />
      <Compile Include="Assets\Scripts\SourceGeneration\AttributeExtensions.cs" />
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\TestComponent.cs" />
-     <Compile Include="Assets\Scripts\Animals\States\EscapingState.cs" />
-     <Compile Include="Assets\Scripts\Animals\Animals\Wolf.cs" />
-     <Compile Include="Assets\Scripts\Animals\AnimalsBehaviourSettings.cs" />
-     <Compile Include="Assets\Scripts\Animals\Animals\Base\Animal.cs" />
-     <Compile Include="Assets\Scripts\Animals\AnimalBehaviourSettings.cs" />
-     <Compile Include="Assets\Scripts\Animals\Animals\Deer.cs" />
+     <Compile Include="Assets\Scripts\Animals\Rabbit\Rabbit.cs" />
+     <Compile Include="Assets\Scripts\Animals\Rabbit\States\WanderingState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Rabbit\States\EscapingState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Deer\States\WanderingState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Deer\States\EscapingState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Wolf\States\WanderingState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Wolf\States\PursuitState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Deer\Deer.cs" />
+     <Compile Include="Assets\Scripts\Animals\Wolf\Wolf.cs" />
+     <Compile Include="Assets\Scripts\Animals\AnimalInfo.cs" />
+     <Compile Include="Assets\Scripts\Animals\AnimalState.cs" />
+     <Compile Include="Assets\Scripts\Animals\Settings\RabbitSettings.cs" />
+     <Compile Include="Assets\Scripts\Animals\Settings\WolfSettings.cs" />
+     <Compile Include="Assets\Scripts\Animals\Settings\DeerSettings.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
