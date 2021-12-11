@@ -41,7 +41,6 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             while (_isAlive)
             {
-                Debug.Log("seek");
                 _currentState = TryFindVictims(out _animalInfo.EnemiesTransforms) ? _pursuitState : _wanderingState;
                 // if (_currentState.Equals(_lastState))
                 // {
@@ -50,8 +49,6 @@ namespace SteeringBehaviors.Animals.Wolf
                 //
                 // _lastState = _currentState;
                 _currentState.StartMoving();
-                Debug.Log("seek2");
-
                 await Task.Yield();
             }
         }
@@ -61,10 +58,9 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             enemies = Physics.OverlapSphere(
                     _animalInfo.AnimalTransform.position, 
-                    _wolfSettings.WolfDetectionRadius,
-                    _wolfSettings.WolfDetectionLayers.value)
+                    _wolfSettings.DetectionRadius,
+                    _wolfSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
-                .Where(transform => transform != _animalInfo.AnimalTransform)
                 .ToArray();
             return enemies.Any();
         }

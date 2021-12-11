@@ -19,16 +19,28 @@ namespace SteeringBehaviors.Animals.Wolf.States
 
         public override void StartMoving()
         {
-            // FindHunterOrNearestVictim(out Transform target);
-            Transform target = FindNearestVictim();
-            float lengthToTarget = Vector3.Distance(AnimalInfo.AnimalTransform.position, target.position);
-            if (TryKillTarget(target, lengthToTarget))
-            {
-                // todo stop wolf moving of 2 sec
-            }
-            // todo continue pursue target
-            AnimalInfo.Mover.PursueAsync(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
-            // AnimalInfo.Mover.Pursue(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
+            #region WorkingVariant
+            // Transform target = FindNearestVictim();
+            // AnimalInfo.Mover.PursueAsync(target, 
+            //     _wolfSettings.PreyLostDistance, _wolfSettings.MaxPursuitTime, _wolfSettings.MaxSpeed);
+            
+            #endregion
+            
+            #region TestVariant
+            
+            // Transform target = FindNearestVictim();
+            // AnimalInfo.Mover.PursueAsync(target, 
+            //     _wolfSettings.PreyLostDistance, _wolfSettings.MaxPursuitTime);
+            //
+            // // float lengthToTarget = Vector3.Distance(AnimalInfo.AnimalTransform.position, target.position);
+            // // if (TryKillTarget(target, lengthToTarget))
+            // // {
+            // //     // todo stop wolf moving of 2 sec
+            // // }
+            // // // todo continue pursue target
+            // // AnimalInfo.Mover.PursueAsync(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
+
+            #endregion
         }
 
         private Transform FindNearestVictim()
@@ -38,7 +50,7 @@ namespace SteeringBehaviors.Animals.Wolf.States
                 .First();
         }
 
-        private void FindHunterOrNearestVictim(out Transform victim)
+        private bool FindHunterOrNearestVictim(out Transform victim)
         {
             throw new NotImplementedException();
         }

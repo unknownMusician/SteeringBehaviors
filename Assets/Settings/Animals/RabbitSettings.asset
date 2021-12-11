@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356915c0888b4f4e9c00a4ccb89bd504, type: 3}
   m_Name: RabbitSettings
   m_EditorClassIdentifier: 
-  _rabbitVelocity: 3
-  _rabbitDetectionRadius: 5
-  _rabbitDetectionLayers:
-    serializedVersion: 2
-    m_Bits: 0
+  _maxSpeed: 1.5
+  _wanderingSpeed: 0.5
+  _detectionRadius: 5
+  _safeDistance: 10

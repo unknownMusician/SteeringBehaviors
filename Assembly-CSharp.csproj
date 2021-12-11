@@ -57,7 +57,6 @@
      <Compile Include="Assets\Scripts\Animals\Settings\RabbitSettings.cs" />
      <Compile Include="Assets\Scripts\Animals\Rabbit\Rabbit.cs" />
      <Compile Include="Assets\Scripts\Animals\Deer\States\WanderingState.cs" />
-     <Compile Include="Assets\Scripts\Movement\Rabbit.cs" />
      <Compile Include="Assets\Scripts\Import\ObjImportHelperWindow.cs" />
      <Compile Include="Assets\Scripts\Animals\Rabbit\States\WanderingState.cs" />
      <Compile Include="Assets\Scripts\Hunt\Killable.cs" />
@@ -73,12 +72,15 @@
      <Compile Include="Assets\Scripts\Import\ObjImportHelper.cs" />
      <Compile Include="Assets\Scripts\Movement\Mover.cs" />
      <Compile Include="Assets\Scripts\Movement\IMover.cs" />
+     <Compile Include="Assets\Scripts\Movement\ForceCalculator.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\WolfSettings.cs" />
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Rabbit\RabbitStraightMonoBehcs.cs" />
      <Compile Include="Assets\Scripts\Animals\Rabbit\States\EscapingState.cs" />
      <Compile Include="Assets\Scripts\Animals\Deer\Deer.cs" />
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Wolf\WolfComponent.cs" />
-     <Compile Include="Assets\Scripts\Movement\ForceCalculator.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Deer\DeerComponent.cs" />
+     <Compile Include="Assets\Scripts\Movement\MobiksMover.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\MobiksMoverComponent.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

@@ -14,13 +14,17 @@ namespace SteeringBehaviors.Animals.Wolf.States
         
         public override void StartMoving()
         {
-            // Vector3 wanderingDirection =
-            //     (AnimalInfo.AnimalTransform.rotation *= new Quaternion(0f, 1f, 0f, 0f)).eulerAngles;
-            // AnimalInfo.Mover.MoveAsync(wanderingDirection);
+            #region WorkingVariant
             
-            AnimalInfo.Mover.MoveAsync(-AnimalInfo.AnimalTransform.forward); 
+            // AnimalInfo.Mover.WanderAsync(_wolfSettings.WanderingSpeed);
+            
+            #endregion
+            
+            #region TestVariant
+            
+            // AnimalInfo.Mover.MoveAsync(AnimalInfo.AnimalTransform.right);
 
-            // AnimalInfo.Mover.StartWalking(AnimalInfo.AnimalTransform.position, _wolfSettings.WolfDetectionRadius);
+            #endregion
         }
     }
 }

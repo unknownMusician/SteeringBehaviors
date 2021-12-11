@@ -13,7 +13,20 @@ namespace SteeringBehaviors.Animals.Rabbit.States
 
         public override void StartMoving()
         {
-            AnimalInfo.Mover.MoveAsync(GetEscapeDirection());
+            #region WorkingVariant
+
+            AnimalInfo.Mover.EscapeFromAsync(
+                AnimalInfo.EnemiesTransforms,
+                _rabbitSettings.SafeDistance,
+                _rabbitSettings.MaxSpeed);
+            
+            #endregion
+            
+            #region TestVariant
+            
+            // AnimalInfo.Mover.MoveAsync(GetEscapeDirection());
+
+            #endregion
         }
 
         private Vector3 GetEscapeDirection()

@@ -47,10 +47,10 @@ namespace SteeringBehaviors.Movement
             if (center == Movable.position)
             {
                 const float error = 0.05f;
-                
+
                 center += error * Vector3.right;
             }
-            
+
             CancellationToken cancellationToken = CancellationGenerator.New();
 
             while (!cancellationToken.IsCancellationRequested)
@@ -58,7 +58,7 @@ namespace SteeringBehaviors.Movement
                 const float angle = 0.45f;
 
                 Vector3 direction = Quaternion.Euler(0.0f, Random.Range(-angle, angle), 0.0f)
-                                  * (center - Movable.position).normalized;
+                                    * (center - Movable.position).normalized;
 
                 direction *= speedMultiplier;
 
@@ -104,8 +104,24 @@ namespace SteeringBehaviors.Movement
             await MoveAsync(
                 () => (prey.position - Movable.position).normalized,
                 () => (Vector3.Distance(Movable.position, prey.position) < lostDistance)
-                   && (Time.time - startTime < time)
+                      && (Time.time - startTime < time)
             );
+        }
+        
+        //todo remove
+        public Task WanderAsync(float wanderingSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EscapeFromAsync(Transform[] enemies, float safeDistance, float escapingSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EscapeFromAsync(Transform enemy, float safeDistance, float escapingSpeed)
+        {
+            throw new NotImplementedException();
         }
 
         public virtual async Task MoveAsync(Func<Vector3> directionProvider)
@@ -127,18 +143,12 @@ namespace SteeringBehaviors.Movement
         protected virtual void MoveFrame(Vector3 direction) => Movable.position +=
             MaxSpeed * Time.deltaTime * Vector3.ClampMagnitude(direction, 1.0f);
 
-        // todo Mobik's method
-        public virtual void ApplyForces(Vector3 finallyVelocity)
-        {
-            Movable.position += finallyVelocity * Time.deltaTime;
-            Movable.rotation = Quaternion.LookRotation(finallyVelocity);
-        }
-
+       
         public virtual void StopMoving() => CancellationGenerator.Cancel();
 
         public virtual void Dispose()
         {
-            CancellationGenerator.Cancel(); 
+            CancellationGenerator.Cancel();
 
             CancellationGenerator.Dispose();
         }

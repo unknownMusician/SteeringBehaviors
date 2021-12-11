@@ -24,7 +24,7 @@ namespace SteeringBehaviors.Animals.Rabbit
         private readonly RabbitSettings _rabbitSettings;
         
         public Rabbit(
-            [Inject(typeof(Mover))] IMover mover,
+            [Inject(typeof(MobiksMover))] IMover mover,
             [FromThisObject] Transform transform,
             RabbitSettings rabbitSettings)
         {
@@ -36,7 +36,7 @@ namespace SteeringBehaviors.Animals.Rabbit
             _lastState = _currentState = _wanderingState;
 
             SeekForEnemies();
-            _currentState.StartMoving();
+            // _currentState.StartMoving();
         }
         private async Task SeekForEnemies()
         {
@@ -61,7 +61,7 @@ namespace SteeringBehaviors.Animals.Rabbit
         {
             enemies = Physics.OverlapSphere(
                     _animalInfo.AnimalTransform.position,
-                    _rabbitSettings.RabbitDetectionRadius)
+                    _rabbitSettings.DetectionRadius)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != _animalInfo.AnimalTransform)
                 .ToArray();
