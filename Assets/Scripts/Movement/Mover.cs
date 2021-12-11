@@ -40,16 +40,25 @@ namespace SteeringBehaviors.Movement
         public virtual async Task MoveToPointAsync(Vector3 worldPoint, float speedMultiplier)
             => await MoveAsync((worldPoint - Movable.position).normalized * speedMultiplier);
 
-        public virtual async Task WalkAsync(Vector3 center, float radius)
+        public virtual async Task WalkAsync(Vector3 center, float radius, float speedMultiplier)
         {
+            if (center == Movable.position)
+            {
+                const float error = 0.05f;
+                
+                center += error * Vector3.right;
+            }
+            
             CancellationToken cancellationToken = CancellationGenerator.New();
 
             while (!cancellationToken.IsCancellationRequested)
             {
                 const float angle = 0.45f;
-                
+
                 Vector3 direction = Quaternion.Euler(0.0f, Random.Range(-angle, angle), 0.0f)
-                                  * (center - Movable.position);
+                                  * (center - Movable.position).normalized;
+
+                direction *= speedMultiplier;
 
                 while (Vector3.Distance(center, Movable.position) < radius)
                 {
