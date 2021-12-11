@@ -74,10 +74,11 @@
      <Compile Include="Assets\Scripts\Movement\Mover.cs" />
      <Compile Include="Assets\Scripts\Movement\IMover.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\WolfSettings.cs" />
-     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Rabbit\Rabbit.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Rabbit\RabbitStraightMonoBehcs.cs" />
      <Compile Include="Assets\Scripts\Animals\Rabbit\States\EscapingState.cs" />
      <Compile Include="Assets\Scripts\Animals\Deer\Deer.cs" />
-     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Rabbit\Test.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Wolf\WolfComponent.cs" />
+     <Compile Include="Assets\Scripts\Movement\ForceCalculator.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

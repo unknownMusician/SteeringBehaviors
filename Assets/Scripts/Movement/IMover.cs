@@ -17,6 +17,10 @@ namespace SteeringBehaviors.Movement
         Task PursueForAsync(Transform transform, float time);
         Task PursueAsync(Transform prey, float lostDistance, float time);
 
+        // todo Mobik's method
+        void ApplyForces(Vector3 velocity);
+
+
         void StopMoving();
     }
 }

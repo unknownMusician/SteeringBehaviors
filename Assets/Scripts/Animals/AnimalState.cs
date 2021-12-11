@@ -19,7 +19,17 @@ namespace SteeringBehaviors.Animals
             {
                 throw new InvalidCastException("Cannot cast 'object' to 'AnimalState'");
             }
-            return AnimalInfo.EnemiesTransforms.Equals(other.AnimalInfo.EnemiesTransforms);
+
+            for (int i = 0; i < AnimalInfo.EnemiesTransforms.Length; i++)
+            {
+                if ((int)AnimalInfo.EnemiesTransforms[i].position.x != (int)other.AnimalInfo.EnemiesTransforms[i].position.x)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+            // return AnimalInfo.EnemiesTransforms == (other.AnimalInfo.EnemiesTransforms);
         }
     }
 }

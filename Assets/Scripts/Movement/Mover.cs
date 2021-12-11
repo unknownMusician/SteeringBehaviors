@@ -118,6 +118,13 @@ namespace SteeringBehaviors.Movement
         protected virtual void MoveFrame(Vector3 direction) => Movable.position +=
             MaxSpeed * Time.deltaTime * Vector3.ClampMagnitude(direction, 1.0f);
 
+        // todo Mobik's method
+        public virtual void ApplyForces(Vector3 finallyVelocity)
+        {
+            Movable.position += finallyVelocity * Time.deltaTime;
+            Movable.rotation = Quaternion.LookRotation(finallyVelocity);
+        }
+
         public virtual void StopMoving() => CancellationGenerator.Cancel();
 
         public virtual void Dispose()

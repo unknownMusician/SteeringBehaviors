@@ -1,5 +1,5 @@
-using SteeringBehaviors.Animals;
 using SteeringBehaviors.Animals.Settings;
+using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Rabbit.States
 {
@@ -14,8 +14,8 @@ namespace SteeringBehaviors.Animals.Rabbit.States
         
         public override void StartMoving()
         {
-            // AnimalInfo.Mover.WalkAsync(AnimalInfo.AnimalTransform.position, _rabbitSettings.RabbitDetectionRadius);
-            AnimalInfo.Mover.MoveAsync(AnimalInfo.AnimalTransform.forward); 
+            AnimalInfo.Mover.WalkAsync(AnimalInfo.AnimalTransform.position + Vector3.forward, _rabbitSettings.RabbitDetectionRadius);
+            // AnimalInfo.Mover.MoveAsync(AnimalInfo.AnimalTransform.forward); 
         }
     }
 }

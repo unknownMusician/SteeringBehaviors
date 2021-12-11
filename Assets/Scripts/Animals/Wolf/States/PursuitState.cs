@@ -3,6 +3,7 @@ using System.Linq;
 using SteeringBehaviors.Animals.Settings;
 using SteeringBehaviors.Hunt;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace SteeringBehaviors.Animals.Wolf.States
 {
@@ -18,13 +19,15 @@ namespace SteeringBehaviors.Animals.Wolf.States
 
         public override void StartMoving()
         {
-            FindHunterOrNearestVictim(out Transform target);
-            float lengthToTarget = (AnimalInfo.AnimalTransform.position - target.position).magnitude;
+            // FindHunterOrNearestVictim(out Transform target);
+            Transform target = FindNearestVictim();
+            float lengthToTarget = Vector3.Distance(AnimalInfo.AnimalTransform.position, target.position);
             if (TryKillTarget(target, lengthToTarget))
             {
                 // todo stop wolf moving of 2 sec
             }
             // todo continue pursue target
+            AnimalInfo.Mover.PursueAsync(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
             // AnimalInfo.Mover.Pursue(target, _wolfSettings.WolfDetectionRadius, _wolfSettings.MaxPursuitTime);
         }
 

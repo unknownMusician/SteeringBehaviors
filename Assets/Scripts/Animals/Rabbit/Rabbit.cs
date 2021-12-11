@@ -43,15 +43,14 @@ namespace SteeringBehaviors.Animals.Rabbit
             while (_isAlive)
             {
                 _currentState = TryFindEnemies(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
-                // Debug.Log(_currentState.ToString());
-                if (_currentState.Equals(_lastState))
-                {
-                    await Task.Yield();
-                    continue;
-                }
+                // if (_currentState.Equals(_lastState))
+                // {
+                //     await Task.Yield();
+                //     continue;
+                // }
 
-                Debug.Log("CHANGE STATE");
-                _lastState = _currentState;
+                // Debug.Log("CHANGE STATE");
+                // _lastState = _currentState;
                 _currentState.StartMoving();
 
                 await Task.Yield();
@@ -64,13 +63,11 @@ namespace SteeringBehaviors.Animals.Rabbit
                     _animalInfo.AnimalTransform.position,
                     _rabbitSettings.RabbitDetectionRadius)
                 .Select(collider => collider.transform)
+                .Where(transform => transform != _animalInfo.AnimalTransform)
                 .ToArray();
             return enemies.Any();
         }
 
-        public void Dispose()
-        {
-            _isAlive = false;
-        }
+        public void Dispose() => _isAlive = false;
     }
 }

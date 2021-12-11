@@ -1,4 +1,5 @@
 using SteeringBehaviors.Animals.Settings;
+using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Rabbit.States
 {
@@ -12,7 +13,19 @@ namespace SteeringBehaviors.Animals.Rabbit.States
 
         public override void StartMoving()
         {
-            throw new System.NotImplementedException();
+            AnimalInfo.Mover.MoveAsync(GetEscapeDirection());
+        }
+
+        private Vector3 GetEscapeDirection()
+        {
+            Vector3 escapeDirection = default;
+            foreach (Transform enemy in AnimalInfo.EnemiesTransforms)
+            {
+                Vector3 fromEnemyDirection = AnimalInfo.AnimalTransform.position - enemy.position;
+                escapeDirection += fromEnemyDirection;
+            }
+
+            return escapeDirection.normalized;
         }
     }
 }

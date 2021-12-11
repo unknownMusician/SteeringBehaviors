@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.Animals.Settings;
@@ -8,7 +9,8 @@ using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Wolf
 {
-    public sealed class Wolf
+    [GenerateMonoBehaviour]
+    public sealed class Wolf : IDisposable
     {
         private readonly AnimalState _wanderingState;
         private readonly AnimalState _pursuitState;
@@ -20,7 +22,7 @@ namespace SteeringBehaviors.Animals.Wolf
         private readonly WolfSettings _wolfSettings;
         
         public Wolf(
-            [FromThisObject] IMover mover, 
+            [Inject(typeof(Mover))] IMover mover,
             [FromThisObject] Transform transform,
             WolfSettings wolfSettings) 
         {
@@ -31,6 +33,7 @@ namespace SteeringBehaviors.Animals.Wolf
             _pursuitState = new PursuitState(_animalInfo, wolfSettings);
             _lastState = _currentState = _wanderingState;
 
+            // _currentState.StartMoving();
             SeekForVictims();
         }
         
@@ -38,14 +41,16 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             while (_isAlive)
             {
+                Debug.Log("seek");
                 _currentState = TryFindVictims(out _animalInfo.EnemiesTransforms) ? _pursuitState : _wanderingState;
-                if (_currentState.Equals(_lastState))
-                {
-                    continue;
-                }
-
-                _lastState = _currentState;
+                // if (_currentState.Equals(_lastState))
+                // {
+                //     await Task.Yield();
+                // }
+                //
+                // _lastState = _currentState;
                 _currentState.StartMoving();
+                Debug.Log("seek2");
 
                 await Task.Yield();
             }
@@ -59,8 +64,11 @@ namespace SteeringBehaviors.Animals.Wolf
                     _wolfSettings.WolfDetectionRadius,
                     _wolfSettings.WolfDetectionLayers.value)
                 .Select(collider => collider.transform)
+                .Where(transform => transform != _animalInfo.AnimalTransform)
                 .ToArray();
             return enemies.Any();
         }
+
+        public void Dispose() => _isAlive = false;
     }
 }
