@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 
 namespace SteeringBehaviors.Animals.Wolf.States
 {
-    public class PursuitState : AnimalState
+    public class PursuitState : AnimalState<AnimalInfo>
     {
         private readonly WolfSettings _wolfSettings;
         private const float TargetDeathDelay = 1f;
@@ -20,9 +20,10 @@ namespace SteeringBehaviors.Animals.Wolf.States
         public override void StartMoving()
         {
             #region WorkingVariant
-            // Transform target = FindNearestVictim();
-            // AnimalInfo.Mover.PursueAsync(target, 
-            //     _wolfSettings.PreyLostDistance, _wolfSettings.MaxPursuitTime, _wolfSettings.MaxSpeed);
+            
+            Transform target = FindNearestVictim();
+            AnimalInfo.Mover.PursueAsync(target, 
+                _wolfSettings.PreyLostDistance, _wolfSettings.MaxPursuitTime, _wolfSettings.MaxSpeed);
             
             #endregion
             
@@ -54,6 +55,8 @@ namespace SteeringBehaviors.Animals.Wolf.States
         {
             throw new NotImplementedException();
         }
+        
+        //todo kill handler
 
         private bool TryKillTarget(Transform target, float lengthToTarget)
         {

@@ -12,11 +12,11 @@ namespace SteeringBehaviors.Animals.Wolf
     [GenerateMonoBehaviour]
     public sealed class Wolf : IDisposable
     {
-        private readonly AnimalState _wanderingState;
-        private readonly AnimalState _pursuitState;
+        private readonly AnimalState<AnimalInfo> _wanderingState;
+        private readonly AnimalState<AnimalInfo> _pursuitState;
 
-        private AnimalState _currentState;
-        private AnimalState _lastState;
+        private AnimalState<AnimalInfo> _currentState;
+        private AnimalState<AnimalInfo> _lastState;
         private bool _isAlive = true;
         private readonly AnimalInfo _animalInfo;
         private readonly WolfSettings _wolfSettings;
@@ -33,7 +33,6 @@ namespace SteeringBehaviors.Animals.Wolf
             _pursuitState = new PursuitState(_animalInfo, wolfSettings);
             _lastState = _currentState = _wanderingState;
 
-            // _currentState.StartMoving();
             SeekForVictims();
         }
         

@@ -14,11 +14,11 @@ namespace SteeringBehaviors.Animals.Rabbit
     [GenerateMonoBehaviour]
     public sealed class Rabbit : IDisposable
     {
-        private readonly AnimalState _wanderingState;
-        private readonly AnimalState _escapingState;
+        private readonly AnimalState<AnimalInfo> _wanderingState;
+        private readonly AnimalState<AnimalInfo> _escapingState;
 
-        private AnimalState _currentState;
-        private AnimalState _lastState;
+        private AnimalState<AnimalInfo> _currentState;
+        private AnimalState<AnimalInfo> _lastState;
         private bool _isAlive = true;
         private readonly AnimalInfo _animalInfo;
         private readonly RabbitSettings _rabbitSettings;

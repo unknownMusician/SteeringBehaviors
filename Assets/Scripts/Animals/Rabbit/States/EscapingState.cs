@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Rabbit.States
 {
-    public class EscapingState : AnimalState
+    public class EscapingState : AnimalState<AnimalInfo>
     {
         private readonly RabbitSettings _rabbitSettings;
         public EscapingState(AnimalInfo animalInfo, RabbitSettings rabbitSettings) : base(animalInfo)
@@ -29,16 +29,16 @@ namespace SteeringBehaviors.Animals.Rabbit.States
             #endregion
         }
 
-        private Vector3 GetEscapeDirection()
-        {
-            Vector3 escapeDirection = default;
-            foreach (Transform enemy in AnimalInfo.EnemiesTransforms)
-            {
-                Vector3 fromEnemyDirection = AnimalInfo.AnimalTransform.position - enemy.position;
-                escapeDirection += fromEnemyDirection;
-            }
-
-            return escapeDirection.normalized;
-        }
+        // private Vector3 GetEscapeDirection()
+        // {
+        //     Vector3 escapeDirection = default;
+        //     foreach (Transform enemy in AnimalInfo.EnemiesTransforms)
+        //     {
+        //         Vector3 fromEnemyDirection = AnimalInfo.AnimalTransform.position - enemy.position;
+        //         escapeDirection += fromEnemyDirection;
+        //     }
+        //
+        //     return escapeDirection.normalized;
+        // }
     }
 }

@@ -2,7 +2,7 @@ using SteeringBehaviors.Animals.Settings;
 
 namespace SteeringBehaviors.Animals.Deer.States
 {
-    public class WanderingState : GroupAnimalState
+    public class WanderingState : AnimalState<GroupAnimalInfo>
     {
         private readonly DeerSettings _deerSettings;
         public WanderingState(GroupAnimalInfo animalInfo, DeerSettings deerSettings) : base(animalInfo)
@@ -14,7 +14,7 @@ namespace SteeringBehaviors.Animals.Deer.States
         {
             #region WorkingVariant
             
-            AnimalInfo.Mover.WanderWithGroupAsync(_deerSettings.WanderingSpeed, GroupAnimalInfo.FriendsTransforms);
+            AnimalInfo.Mover.WanderWithGroupAsync(_deerSettings.WanderingSpeed, AnimalInfo.FriendsTransforms);
             
             #endregion
             

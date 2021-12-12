@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Rabbit.States
 {
-    public class WanderingState : AnimalState
+    public class WanderingState : AnimalState<AnimalInfo>
     {
         //todo change general rabbit settings constructor parameter to only necessary
         private readonly RabbitSettings _rabbitSettings;

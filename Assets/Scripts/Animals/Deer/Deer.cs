@@ -11,17 +11,17 @@ namespace SteeringBehaviors.Animals.Deer
     [GenerateMonoBehaviour]
     public sealed class Deer
     {
-        private readonly AnimalState _wanderingState;
-        private readonly AnimalState _escapingState;
+        private readonly AnimalState<GroupAnimalInfo> _wanderingState;
+        private readonly AnimalState<GroupAnimalInfo> _escapingState;
 
-        private AnimalState _currentState;
-        private AnimalState _lastState;
+        private AnimalState<GroupAnimalInfo> _currentState;
+        private AnimalState<GroupAnimalInfo> _lastState;
         private bool _isAlive = true;
         private readonly GroupAnimalInfo _animalInfo;
         private readonly DeerSettings _deerSettings;
 
         public Deer(
-            [Inject(typeof(Mover))] IMover mover,
+            [Inject(typeof(MobiksMover))] IMover mover,
             [FromThisObject] Transform transform,
             DeerSettings deerSettings)
         {
@@ -39,8 +39,8 @@ namespace SteeringBehaviors.Animals.Deer
         {
             while (_isAlive)
             {
+                FindFriends(out _animalInfo.FriendsTransforms);
                 _currentState = TryFindEnemies(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
-                TryFindFriends(out _friendsTransforms);
                 // if (_currentState.Equals(_lastState))
                 // {
                 //     continue;
@@ -65,16 +65,16 @@ namespace SteeringBehaviors.Animals.Deer
             return enemies.Any();
         }
         
-        private bool TryFindFriends(out Transform[] nearestDeer)
+        private void FindFriends(out Transform[] nearestDeer)
         {
             nearestDeer = Physics.OverlapSphere(
                     _animalInfo.AnimalTransform.position, 
-                    _deerSettings.GroupDetectionRadius,
+                    _deerSettings.CohesionRadius,
                     _deerSettings.DeerGroupLayers)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != _animalInfo.AnimalTransform)
                 .ToArray();
-            return nearestDeer.Any();
+            // return nearestDeer.Any();
         }
     }
 }

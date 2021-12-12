@@ -81,7 +81,6 @@
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Deer\DeerComponent.cs" />
      <Compile Include="Assets\Scripts\Movement\MobiksMover.cs" />
      <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\MobiksMoverComponent.cs" />
-     <Compile Include="Assets\Scripts\Animals\GroupAnimalState.cs" />
      <Compile Include="Assets\Scripts\Animals\GroupAnimalInfo.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

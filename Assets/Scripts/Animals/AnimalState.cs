@@ -2,11 +2,11 @@ using System;
 
 namespace SteeringBehaviors.Animals
 {
-    public abstract class AnimalState
+    public abstract class AnimalState<TInfo> where TInfo : AnimalInfo
     {
-        protected readonly AnimalInfo AnimalInfo;
+        protected readonly TInfo AnimalInfo;
 
-        protected AnimalState(AnimalInfo animalInfo)
+        protected AnimalState(TInfo animalInfo)
         {
             AnimalInfo = animalInfo;
         }
@@ -15,7 +15,7 @@ namespace SteeringBehaviors.Animals
 
         public override bool Equals(object obj)
         {
-            if (!(obj is AnimalState other))
+            if (!(obj is AnimalState<TInfo> other))
             {
                 throw new InvalidCastException("Cannot cast 'object' to 'AnimalState'");
             }
@@ -29,7 +29,6 @@ namespace SteeringBehaviors.Animals
             }
 
             return true;
-            // return AnimalInfo.EnemiesTransforms == (other.AnimalInfo.EnemiesTransforms);
         }
     }
 }

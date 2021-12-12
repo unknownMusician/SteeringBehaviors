@@ -12,5 +12,10 @@ namespace SteeringBehaviors.Animals
         {
             FriendsTransforms = Array.Empty<Transform>();
         }
+
+        public override bool Equals(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

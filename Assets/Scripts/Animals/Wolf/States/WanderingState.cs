@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SteeringBehaviors.Animals.Wolf.States
 {
-    public class WanderingState : AnimalState
+    public class WanderingState : AnimalState<AnimalInfo>
     {
         //todo change general wolf settings constructor parameter to only necessary
         private readonly WolfSettings _wolfSettings;
@@ -15,13 +15,13 @@ namespace SteeringBehaviors.Animals.Wolf.States
         public override void StartMoving()
         {
             #region WorkingVariant
-            
-            // AnimalInfo.Mover.WanderAsync(_wolfSettings.WanderingSpeed);
-            
+
+            AnimalInfo.Mover.WanderAsync(_wolfSettings.WanderingSpeed);
+
             #endregion
-            
+
             #region TestVariant
-            
+
             // AnimalInfo.Mover.MoveAsync(AnimalInfo.AnimalTransform.right);
 
             #endregion

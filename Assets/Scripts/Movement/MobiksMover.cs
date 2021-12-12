@@ -52,15 +52,23 @@ namespace SteeringBehaviors.Movement
 
         private void MoveFrame(Vector3 direction, float speed) => Movable.position +=
             speed * Time.deltaTime * Vector3.ClampMagnitude(direction, 1.0f);
+
+        public async Task PursueAsync(Transform prey, float lostDistance, float time, float pursuitSpeed)
+        {
+            await MoveAsync(
+                () => (prey.position - Movable.position).normalized,
+                () => Vector3.Distance(Movable.position, prey.position) < lostDistance
+            );
+        }
+
         
-        public void StopMoving() => CancellationGenerator.Cancel();
-        
-        
-        
-        
-        
-        
-        
+
+
+        public Task WanderWithGroupAsync(float wanderingSpeed, Transform[] @group)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task EscapeFromAsync(Transform[] enemies, float safeDistance, float escapingSpeed)
         {
             CancellationToken cancellationToken = CancellationGenerator.New();
@@ -74,8 +82,13 @@ namespace SteeringBehaviors.Movement
                 await Task.Yield();
             }
         }
-        
-        
+
+        public Task EscapeWithGroupAsync(Transform[] enemies, Transform[] @group, float safeDistance, float escapingSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public async Task WanderAsync(float wanderingSpeed)
         {
             CancellationToken cancellationToken = CancellationGenerator.New();
@@ -103,5 +116,7 @@ namespace SteeringBehaviors.Movement
 
             CancellationGenerator.Dispose();
         }
+        public void StopMoving() => CancellationGenerator.Cancel();
+
     }
 }
