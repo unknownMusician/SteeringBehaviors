@@ -17,17 +17,15 @@ namespace SteeringBehaviors.Animals.Deer
         private AnimalState _currentState;
         private AnimalState _lastState;
         private bool _isAlive = true;
-        private readonly AnimalInfo _animalInfo;
+        private readonly GroupAnimalInfo _animalInfo;
         private readonly DeerSettings _deerSettings;
-        private Transform[] _friendsTransforms;
 
         public Deer(
             [Inject(typeof(Mover))] IMover mover,
             [FromThisObject] Transform transform,
             DeerSettings deerSettings)
         {
-            _animalInfo = new AnimalInfo(mover, transform);
-            // _friendsTransforms = new Transform[];
+            _animalInfo = new GroupAnimalInfo(mover, transform);
             _deerSettings = deerSettings;
             
             _wanderingState = new WanderingState(_animalInfo, deerSettings);
@@ -59,7 +57,7 @@ namespace SteeringBehaviors.Animals.Deer
         {
             enemies = Physics.OverlapSphere(
                     _animalInfo.AnimalTransform.position, 
-                    _deerSettings.EnemyDetectionRadius,
+                    _deerSettings.DetectionRadius,
                     _deerSettings.EnemiesLayers)
                 .Select(collider => collider.transform)
                 .ToArray();

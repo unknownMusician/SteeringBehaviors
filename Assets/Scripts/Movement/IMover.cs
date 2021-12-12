@@ -22,7 +22,7 @@ namespace SteeringBehaviors.Movement
         // Task EscapeFromAsync(Transform enemy, float safeDistance, float escapingSpeed);
         Task EscapeFromAsync(Transform[] enemies, float safeDistance, float escapingSpeed);
         // Task PursueAsync(Transform prey, float lostDistance, float time, float pursueSpeed);
-        // Task WanderWithGroupAsync(float wanderingSpeed, Transform[] group);
+        Task WanderWithGroupAsync(float wanderingSpeed, Transform[] group);
         // Task EscapeWithGroupAsync(Transform[] enemies, Transform[] group, float safeDistance, float escapingSpeed);
 
 

@@ -5,7 +5,7 @@ namespace SteeringBehaviors.Animals
     public abstract class AnimalState
     {
         protected readonly AnimalInfo AnimalInfo;
-        
+
         protected AnimalState(AnimalInfo animalInfo)
         {
             AnimalInfo = animalInfo;

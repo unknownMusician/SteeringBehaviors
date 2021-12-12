@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SteeringBehaviors.Animals
 {
-    public sealed class AnimalInfo
+    public class AnimalInfo
     {
         public readonly IMover Mover;
         public readonly Transform AnimalTransform;
