@@ -22,7 +22,7 @@ namespace SteeringBehaviors.Animals.Wolf
         private readonly WolfSettings _wolfSettings;
         
         public Wolf(
-            [Inject(typeof(Mover))] IMover mover,
+            [Inject(typeof(MobiksMover))] IMover mover,
             [FromThisObject] Transform transform,
             WolfSettings wolfSettings) 
         {

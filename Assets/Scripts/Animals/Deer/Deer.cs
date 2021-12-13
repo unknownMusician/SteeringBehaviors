@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.Animals.Deer.States;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace SteeringBehaviors.Animals.Deer
 {
     [GenerateMonoBehaviour]
-    public sealed class Deer
+    public sealed class Deer : IDisposable
     {
         private readonly AnimalState<GroupAnimalInfo> _wanderingState;
         private readonly AnimalState<GroupAnimalInfo> _escapingState;
@@ -76,5 +77,7 @@ namespace SteeringBehaviors.Animals.Deer
                 .ToArray();
             // return nearestDeer.Any();
         }
+
+        public void Dispose() => _isAlive = false;
     }
 }

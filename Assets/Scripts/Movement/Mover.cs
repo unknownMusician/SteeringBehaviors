@@ -114,7 +114,22 @@ namespace SteeringBehaviors.Movement
             throw new NotImplementedException();
         }
 
+        public Task WanderWithGroupAsync(float wanderingSpeed, Transform[] @group)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task EscapeFromAsync(Transform[] enemies, float safeDistance, float escapingSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EscapeWithGroupAsync(Transform[] enemies, Transform[] @group, float safeDistance, float escapingSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PursueAsync(Transform prey, float lostDistance, float time, float pursuitSpeed)
         {
             throw new NotImplementedException();
         }
