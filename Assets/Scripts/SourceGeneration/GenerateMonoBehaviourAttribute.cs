@@ -10,7 +10,15 @@ namespace SteeringBehaviors.SourceGeneration
     public sealed class GenerateMonoBehaviourAttribute : PreserveAttribute { }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class FromThisObjectAttribute : PreserveAttribute { }
+    public sealed class FromThisObjectAttribute : PreserveAttribute
+    {
+        public readonly bool GetSpecificType;
+
+        public FromThisObjectAttribute(bool getSpecificType = false)
+        {
+            GetSpecificType = getSpecificType;
+        }
+    }
 
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectAttribute : PreserveAttribute

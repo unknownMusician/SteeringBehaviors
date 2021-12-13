@@ -11,10 +11,16 @@ namespace SteeringBehaviors.SourceGeneration
     {
         static SourceGeneratorInitializer()
         {
-            Assembly assembly = AppDomain.CurrentDomain.GetAssemblies()
-                                         .First(assembly => assembly.GetName().Name == "Assembly-CSharp");
-
-            new SourceGenerator(new FileWriter(), new SourceGeneratorUtil()).Inspect(assembly);
+            new SourceGenerator(new FileWriter(), new SourceGeneratorUtil()).Inspect(AssemblyHelper.GameAssembly);
         }
+    }
+
+    public static class AssemblyHelper
+    {
+        public static readonly Assembly GameAssembly = AppDomain.CurrentDomain.GetAssemblies()
+                                                                .First(
+                                                                    assembly => assembly.GetName().Name
+                                                                     == "Assembly-CSharp"
+                                                                );
     }
 }

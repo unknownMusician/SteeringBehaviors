@@ -84,18 +84,18 @@ namespace SteeringBehaviors.SourceGeneration
 
 namespace Generated.{@namespace}
 {{
-    public sealed class {typeName}Component : global::UnityEngine.MonoBehaviour
+    public sealed class {typeName}Component : global::UnityEngine.MonoBehaviour, global::{typeof(IComponent<>).Namespace}.IComponent<global::{@namespace}.{typeName}>
     {{{fields}
-        public global::{@namespace}.{typeName} {typeName} {{ get; private set; }}
+        public global::{@namespace}.{typeName} HeldType {{ get; private set; }}
 
         private void Awake()
         {{
-            {typeName} = new global::{@namespace}.{typeName}({parameters});
+            HeldType = new global::{@namespace}.{typeName}({parameters});
         }}{(!isDisposable ? string.Empty : $@"
 
         private void OnDestroy()
         {{
-            {typeName}.Dispose();
+            HeldType.Dispose();
         }}")}
     }}
 }}
@@ -166,7 +166,7 @@ namespace Generated.{@namespace}
 
             Type parameterType = parameter.ParameterType;
 
-            if (parameter.TryGetCustomAttribute(out InjectAttribute? attribute))
+            if (parameter.TryGetCustomAttribute(out InjectAttribute? injectAttribute))
             {
                 if (!parameterType.IsInterface)
                 {
@@ -175,17 +175,24 @@ namespace Generated.{@namespace}
                     );
                 }
 
-                parameterType = attribute!.InjectedType;
+                parameterType = injectAttribute!.InjectedType;
             }
 
             if (parameterType.TryGetCustomAttribute(out GenerateMonoBehaviourAttribute _))
             {
-                parameterName += '.' + parameterType.Name;
+                parameterName += ".HeldType";
             }
 
-            if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute _))
+            if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute? fromThisObjectAttribute))
             {
-                parameterName = $"GetComponent<{_util.GetAliasName(parameterType)}>()";
+                if (fromThisObjectAttribute!.GetSpecificType)
+                {
+                    parameterName = $"GetComponent<{_util.GetAliasName(parameterType)}>()";
+                }
+                else
+                {
+                    parameterName = $"GetComponent<global::{typeof(IComponent<>).Namespace}.IComponent<{_util.GetAliasName(parameterType)}>>().HeldType";
+                }
             }
 
             return parameterName;
