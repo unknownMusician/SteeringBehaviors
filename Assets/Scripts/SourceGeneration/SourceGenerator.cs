@@ -248,11 +248,34 @@ namespace Generated.{@namespace}
                 typeFullName = $"Generated.{typeFullName}Component";
             }
 
+            if (parameterType.IsGenericType)
+            {
+                typeFullName =
+                    $"{parameterType.FullName.Substring(0, parameterType.FullName.IndexOf('`'))}<{GenericTypeArgumentsToString(parameterType)}>";
+            }
+
             typeFullName = _util.GetAliasName(typeFullName);
 
             result = $"[global::UnityEngine.SerializeField] private {typeFullName} _{parameter.Name};";
 
             return true;
+        }
+
+        protected string GenericTypeArgumentsToString(Type type)
+        {
+            var builder = new StringBuilder();
+
+            foreach (Type argument in type.GenericTypeArguments)
+            {
+                builder.Append(_util.GetAliasName(argument) + ", ");
+            }
+
+            if (builder.Length > 0)
+            {
+                builder.Remove(builder.Length - 2, 2);
+            }
+
+            return builder.ToString();
         }
     };
 }

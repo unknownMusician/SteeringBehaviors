@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 7943671652543827198}
   - component: {fileID: 329399438854371967}
   - component: {fileID: 6639881810377125589}
-  - component: {fileID: 1976948139623913371}
-  - component: {fileID: 1976948139623913370}
-  - component: {fileID: 1976948139623913376}
+  - component: {fileID: 478137685337657569}
   m_Layer: 6
   m_Name: Rabbit
   m_TagString: Untagged
@@ -85,20 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1976948139623913371
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8009557454031923703}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.6, z: 0.70000005}
-  m_Center: {x: 0, y: 0.3, z: 0.049999997}
---- !u!114 &1976948139623913370
+--- !u!114 &478137685337657569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,19 +95,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8a860e0adaf3643913ba659de4991f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movable: {fileID: 7943671652543827198}
-  _maxSpeed: 1
---- !u!114 &1976948139623913376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8009557454031923703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3114b869bf38b9042abf475dd555249e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mover: {fileID: 1976948139623913370}
-  _rabbitSettings: {fileID: 11400000, guid: db8b53eeb0c47b545b6d08d62f72e167, type: 2}
+  _movable: {fileID: 0}
+  _maxSpeed: 0
+  _impactInfos:
+    Wander:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeEnemy:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    PursuePrey:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    KeepBounds:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+  _bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  _dangers: []
+  _preys: []
+  _friends: []

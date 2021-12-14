@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3206388072133478420}
   - component: {fileID: 2793501588772611198}
   - component: {fileID: 2407264781483245249}
-  - component: {fileID: 1685467593}
+  - component: {fileID: 8563997032906742838}
   m_Layer: 8
   m_Name: Wolf
   m_TagString: Untagged
@@ -86,16 +86,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1685467593
-BoxCollider:
+--- !u!114 &8563997032906742838
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7957129974960142819}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0.5, z: 0.050000012}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8a860e0adaf3643913ba659de4991f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movable: {fileID: 3206388072133478420}
+  _maxSpeed: 9
+  _impactInfos:
+    Wander:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeEnemy:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    PursuePrey:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    KeepBounds:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+  _bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 35, y: 0, z: 35}
+  _dangers: []
+  _preys: []
+  _friends: []
