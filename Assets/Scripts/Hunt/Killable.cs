@@ -8,11 +8,11 @@ namespace SteeringBehaviors.Hunt
     public sealed class Killable
     {
         private readonly GameObject _thisObject;
-        private IMover _mover;
+        private Mover _mover;
         
         public Killable(
             [FromThisObject] GameObject thisObject, 
-            [FromThisObject] IMover mover)
+            [FromThisObject] Mover mover)
         {
             _thisObject = thisObject;
             _mover = mover;

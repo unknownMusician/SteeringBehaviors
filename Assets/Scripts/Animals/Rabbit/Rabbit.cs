@@ -1,73 +1,48 @@
-using System;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
-using SteeringBehaviors.Animals.Rabbit.States;
 using SteeringBehaviors.Animals.Settings;
 using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace SteeringBehaviors.Animals.Rabbit
 {
     [GenerateMonoBehaviour]
-    public sealed class Rabbit : IDisposable
+    public class Rabbit : Animal<RabbitSettings>
     {
-        private readonly AnimalState<AnimalInfo> _wanderingState;
-        private readonly AnimalState<AnimalInfo> _escapingState;
-
-        private AnimalState<AnimalInfo> _currentState;
-        private AnimalState<AnimalInfo> _lastState;
-        private bool _isAlive = true;
-        private readonly AnimalInfo _animalInfo;
-        private readonly RabbitSettings _rabbitSettings;
-        
         public Rabbit(
-            [Inject(typeof(MobiksMover))] IMover mover,
-            [FromThisObject] Transform transform,
-            RabbitSettings rabbitSettings)
+            Mover mover,
+            RabbitSettings rabbitSettings,
+            [FromThisObject] Transform transform) : base(mover, transform, rabbitSettings)
         {
-            _animalInfo = new AnimalInfo(mover, transform);
-            _rabbitSettings = rabbitSettings;
             
-            _wanderingState = new WanderingState(_animalInfo, rabbitSettings);
-            _escapingState = new EscapingState(_animalInfo, rabbitSettings);
-            _lastState = _currentState = _wanderingState;
-
-            SeekForEnemies();
-            // _currentState.StartMoving();
         }
-        private async Task SeekForEnemies()
+
+        protected override async Task SeekForEntities()
         {
-            while (_isAlive)
+            Transform[] dangers;
+            while (IsAlive)
             {
-                _currentState = TryFindEnemies(out _animalInfo.EnemiesTransforms) ? _escapingState : _wanderingState;
-                // if (_currentState.Equals(_lastState))
-                // {
-                //     await Task.Yield();
-                //     continue;
-                // }
+                if (TryFindDangers(out dangers))
+                {
+                    AnimalInfo.Mover.Dangers.Clear();
+                    AnimalInfo.Mover.Dangers.AddRange(dangers);
+                }
 
-                // Debug.Log("CHANGE STATE");
-                // _lastState = _currentState;
-                _currentState.StartMoving();
-
+                Debug.Log(AnimalInfo.Mover.Dangers.Count);
                 await Task.Yield();
             }
         }
 
-        private bool TryFindEnemies(out Transform[] enemies)
+        private bool TryFindDangers(out Transform[] dangers)
         {
-            enemies = Physics.OverlapSphere(
-                    _animalInfo.AnimalTransform.position,
-                    _rabbitSettings.DetectionRadius)
+            dangers = Physics.OverlapSphere(
+                    AnimalInfo.AnimalTransform.position,
+                    AnimalSettings.DetectionRadius)
                 .Select(collider => collider.transform)
-                .Where(transform => transform != _animalInfo.AnimalTransform)
+                .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();
-            return enemies.Any();
+            return dangers.Any();
         }
-
-        public void Dispose() => _isAlive = false;
     }
 }

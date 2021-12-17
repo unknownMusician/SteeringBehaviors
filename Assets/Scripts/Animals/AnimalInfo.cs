@@ -6,15 +6,15 @@ namespace SteeringBehaviors.Animals
 {
     public class AnimalInfo
     {
-        public readonly IMover Mover;
+        public readonly Mover Mover;
         public readonly Transform AnimalTransform;
-        public Transform[] EnemiesTransforms;
+        // public Transform[] EnemiesTransforms;
 
-        public AnimalInfo(IMover mover, Transform animalTransform)
+        public AnimalInfo(Mover mover, Transform animalTransform)
         {
             Mover = mover;
             AnimalTransform = animalTransform;
-            EnemiesTransforms = Array.Empty<Transform>();
+            // EnemiesTransforms = Array.Empty<Transform>();
         }
     }
     // public sealed class AnimalInfo<TSettings> where TSettings : ScriptableObject
