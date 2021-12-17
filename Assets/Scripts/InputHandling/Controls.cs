@@ -35,6 +35,14 @@ namespace SteeringBehaviors.InputHandling
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""e20b7871-eaef-4396-9092-75b65ef3cdb7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -59,6 +67,17 @@ namespace SteeringBehaviors.InputHandling
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""137a0ed8-0e47-495d-821d-649e651553fc"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -69,6 +88,7 @@ namespace SteeringBehaviors.InputHandling
             m_Shooting = asset.FindActionMap("Shooting", throwIfNotFound: true);
             m_Shooting_Aim = m_Shooting.FindAction("Aim", throwIfNotFound: true);
             m_Shooting_Shoot = m_Shooting.FindAction("Shoot", throwIfNotFound: true);
+            m_Shooting_MousePosition = m_Shooting.FindAction("MousePosition", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -120,12 +140,14 @@ namespace SteeringBehaviors.InputHandling
         private IShootingActions m_ShootingActionsCallbackInterface;
         private readonly InputAction m_Shooting_Aim;
         private readonly InputAction m_Shooting_Shoot;
+        private readonly InputAction m_Shooting_MousePosition;
         public struct ShootingActions
         {
             private @Controls m_Wrapper;
             public ShootingActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Aim => m_Wrapper.m_Shooting_Aim;
             public InputAction @Shoot => m_Wrapper.m_Shooting_Shoot;
+            public InputAction @MousePosition => m_Wrapper.m_Shooting_MousePosition;
             public InputActionMap Get() { return m_Wrapper.m_Shooting; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -141,6 +163,9 @@ namespace SteeringBehaviors.InputHandling
                     @Shoot.started -= m_Wrapper.m_ShootingActionsCallbackInterface.OnShoot;
                     @Shoot.performed -= m_Wrapper.m_ShootingActionsCallbackInterface.OnShoot;
                     @Shoot.canceled -= m_Wrapper.m_ShootingActionsCallbackInterface.OnShoot;
+                    @MousePosition.started -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.performed -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.canceled -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
                 }
                 m_Wrapper.m_ShootingActionsCallbackInterface = instance;
                 if (instance != null)
@@ -151,6 +176,9 @@ namespace SteeringBehaviors.InputHandling
                     @Shoot.started += instance.OnShoot;
                     @Shoot.performed += instance.OnShoot;
                     @Shoot.canceled += instance.OnShoot;
+                    @MousePosition.started += instance.OnMousePosition;
+                    @MousePosition.performed += instance.OnMousePosition;
+                    @MousePosition.canceled += instance.OnMousePosition;
                 }
             }
         }
@@ -159,6 +187,7 @@ namespace SteeringBehaviors.InputHandling
         {
             void OnAim(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnMousePosition(InputAction.CallbackContext context);
         }
     }
 }

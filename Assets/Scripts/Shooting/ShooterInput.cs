@@ -1,6 +1,10 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
+using System.Threading.Tasks;
 using SteeringBehaviors.InputHandling;
 using SteeringBehaviors.SourceGeneration;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace SteeringBehaviors.Shooting
@@ -11,17 +15,47 @@ namespace SteeringBehaviors.Shooting
         protected readonly IShooter Shooter;
         protected readonly Controls Controls = new Controls();
 
+        protected bool IsAlive = true;
+
         public ShooterInput([Inject(typeof(Shooter))] IShooter shooter)
         {
             Shooter = shooter;
 
             EnableControls();
+            ReadMousePositionAsync();
+        }
+
+        protected async Task ReadMousePositionAsync()
+        {
+            while (IsAlive)
+            {
+                ReadMousePosition();
+
+                await Task.Yield();
+            }
+        }
+
+        protected void ReadMousePosition()
+        {
+            Camera? camera = Camera.main;
+
+            if (camera == null)
+            {
+                throw new ArgumentException("MainCamera should not be Null.");
+            }
+
+            Ray lookRay = camera.ScreenPointToRay(Controls.Shooting.MousePosition.ReadValue<Vector2>());
+
+            if (Physics.Raycast(lookRay, out RaycastHit hit))
+            {
+                Shooter.AimPosition = hit.point;
+            }
         }
 
         protected void EnableControls()
         {
             Controls.Enable();
-            
+
             Controls.Shooting.Aim.performed += HandleStartAiming;
             Controls.Shooting.Aim.canceled += HandleStopAiming;
             Controls.Shooting.Shoot.performed += HandleShoot;
@@ -44,6 +78,7 @@ namespace SteeringBehaviors.Shooting
         {
             DisableControls();
             Controls.Dispose();
+            IsAlive = false;
         }
     }
 }
