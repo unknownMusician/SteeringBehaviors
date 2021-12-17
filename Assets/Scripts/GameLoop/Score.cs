@@ -75,6 +75,8 @@ namespace SteeringBehaviors.GameLoop
                         throw new System.ArgumentOutOfRangeException();
                 }
             }
+
+            return new Score(wolvesToKill, deersToKill, rabbitsToKill);
         }
 
     }
