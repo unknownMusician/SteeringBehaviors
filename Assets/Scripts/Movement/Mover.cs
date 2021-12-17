@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 namespace SteeringBehaviors.Movement
 {
     [GenerateMonoBehaviour]
-    public class Mover : IMover, IDisposable
+    public class Mover : IDisposable
     {
         protected readonly Transform Movable;
         protected readonly float MaxSpeed;
