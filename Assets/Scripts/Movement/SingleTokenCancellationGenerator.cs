@@ -16,7 +16,7 @@ namespace SteeringBehaviors.Movement
             return (_cancellationTokenSource = new CancellationTokenSource()).Token;
         }
 
-        public void Cancel() => _cancellationTokenSource?.Cancel();
+        public void Cancel() => _cancellationTokenSource?.Cancel(); 
 
         public void Dispose() => _cancellationTokenSource?.Dispose();
     }
