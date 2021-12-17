@@ -61,7 +61,7 @@ namespace SteeringBehaviors.Shooting
 
         public void TryReload()
         {
-            
+            _magazine.ReloadWeapon();
         }
     }
 }
