@@ -12,5 +12,8 @@ namespace SteeringBehaviors.Shooting
         void StopAiming();
 
         void TryShoot();
+
+        void TryReload();
+
     }
 }
