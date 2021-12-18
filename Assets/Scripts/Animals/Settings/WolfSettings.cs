@@ -5,17 +5,25 @@ namespace SteeringBehaviors.Animals.Settings
     [CreateAssetMenu(fileName = "WolfSettings", menuName = "AnimalsSettings/WolfSettings", order = 0)]
     public class WolfSettings : ScriptableObject
     {
-        [Header("Wolves settings")]
+        [Header("Speed parameters")]
         [SerializeField] private float _maxSpeed = 2f;
         [SerializeField] private float _wanderingSpeed = 1f;
+        
+        [Header("Detection circles")]
         [SerializeField] private float _detectionRadius = 8f;
+        
+        [Header("Entity layers")]
         [SerializeField] private LayerMask _enemiesLayers  = default;
-        [SerializeField] private float _attackDistance = 0.2f;
-        [SerializeField] private float _lifetimeWithoutKills = 60f;
+
+        [Header("Pursuit parameters")]
+        [SerializeField] private float _attackDistance = 1f;
         [SerializeField] private float _maxPursuitTime = 10f;
         [SerializeField] private float _preyLostDistance = 8f;
 
+        [Header("Other")]
+        [SerializeField] private float _lifetimeWithoutKills = 60f;
 
+        
         public float MaxSpeed => _maxSpeed;
 
         public float WanderingSpeed => _wanderingSpeed;

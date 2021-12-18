@@ -1,6 +1,8 @@
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.Animals.Settings;
+using SteeringBehaviors.Hunt;
 using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
@@ -10,12 +12,15 @@ namespace SteeringBehaviors.Animals.Rabbit
     [GenerateMonoBehaviour]
     public class Rabbit : Animal<RabbitSettings>
     {
+        // public readonly Killable Killable;
         public Rabbit(
             Mover mover,
+            // Killable killable,
             RabbitSettings rabbitSettings,
             [FromThisObject] Transform transform) : base(mover, transform, rabbitSettings)
         {
-            
+            // Killable = transform.gameObject.AddComponent<KillableComponent>().Killable;
+            // Killable = killable;
         }
 
         protected override async Task SeekForEntities()
@@ -23,13 +28,13 @@ namespace SteeringBehaviors.Animals.Rabbit
             Transform[] dangers;
             while (IsAlive)
             {
+                AnimalInfo.Mover.Dangers.Clear();
                 if (TryFindDangers(out dangers))
                 {
-                    AnimalInfo.Mover.Dangers.Clear();
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
 
-                Debug.Log(AnimalInfo.Mover.Dangers.Count);
+                // Debug.Log(AnimalInfo.Mover.Dangers.Count);
                 await Task.Yield();
             }
         }
@@ -38,7 +43,7 @@ namespace SteeringBehaviors.Animals.Rabbit
         {
             dangers = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position,
-                    AnimalSettings.DetectionRadius)
+                    AnimalSettings.DangerDetectionRadius)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();

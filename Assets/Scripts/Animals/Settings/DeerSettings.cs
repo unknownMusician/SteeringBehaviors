@@ -6,20 +6,21 @@ namespace SteeringBehaviors.Animals.Settings
     public class DeerSettings : ScriptableObject
     {
         [Header("Speed parameters")]
-        [SerializeField] private float _maxSpeed = 3f;
-        [SerializeField] private float _wanderingSpeed = 1f;
+        [SerializeField] private float _maxSpeed = 8f;
+        [SerializeField] private float _wanderingSpeed = 4f;
         
         [Header("Detection circles")]
-        [SerializeField] private float _detectionRadius = 5f;
-        [SerializeField] private float _separationRadius = 1f;
-        [SerializeField] private float _cohesionRadius = 3f;
+        [SerializeField] private float _dangerDetectionRadius = 10f;
+        [SerializeField] private float _friendsDetectionRadius = 8f;
+        // [SerializeField] private float _separationRadius = 1f;
+        // [SerializeField] private float _cohesionRadius = 3f;
         // [SerializeField] private float _groupDetectionRadius = 5f;
         
         [Header("Entity layers")]
-        [SerializeField] private LayerMask _enemiesLayers  = default;
-        [SerializeField] private LayerMask _deerGroupLayers  = default;
+        [SerializeField] private LayerMask _dangersLayers  = default;
+        [SerializeField] private LayerMask _friendsLayers  = default;
         
-        [Header("Other")]
+        [Header("Escaping parameters")]
         [SerializeField] private float _escapingSafeDistance = 10f;
         
 
@@ -27,18 +28,14 @@ namespace SteeringBehaviors.Animals.Settings
 
         public float WanderingSpeed => _wanderingSpeed;
 
-        public float DetectionRadius => _detectionRadius;
+        public float DangerDetectionRadius => _dangerDetectionRadius;
 
-        public LayerMask EnemiesLayers => _enemiesLayers;
+        public LayerMask DangersLayers => _dangersLayers;
 
-        public LayerMask DeerGroupLayers => _deerGroupLayers;
-
-        // public float GroupDetectionRadius => _groupDetectionRadius;
-
-        public float SeparationRadius => _separationRadius;
-
-        public float CohesionRadius => _cohesionRadius;
+        public LayerMask FriendsLayers => _friendsLayers;
 
         public float EscapingSafeDistance => _escapingSafeDistance;
+
+        public float FriendsDetectionRadius => _friendsDetectionRadius;
     }
 }

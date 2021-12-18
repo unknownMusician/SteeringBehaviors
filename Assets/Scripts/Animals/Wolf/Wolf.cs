@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Generated.SteeringBehaviors.Hunt;
 using SteeringBehaviors.Animals.Settings;
+using SteeringBehaviors.Hunt;
 using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
@@ -8,10 +10,8 @@ using UnityEngine;
 namespace SteeringBehaviors.Animals.Wolf
 {
     [GenerateMonoBehaviour]
-    public sealed class Wolf : Animal<WolfSettings>
+    public class Wolf : Animal<WolfSettings>
     {
-        private readonly WolfSettings _wolfSettings;
-        
         public Wolf(
             Mover mover,
             WolfSettings wolfSettings,
@@ -25,10 +25,15 @@ namespace SteeringBehaviors.Animals.Wolf
             Transform[] preys;
             while (IsAlive)
             {
+                AnimalInfo.Mover.Preys.Clear();
                 if (TryFindPreys(out preys))
                 {
-                    AnimalInfo.Mover.Preys.Clear();
                     AnimalInfo.Mover.Preys.AddRange(preys);
+                }
+
+                if (TryFindKillableEnemy(out Killable victim))
+                {
+                    victim.KillMe(1f);
                 }
                 
                 await Task.Yield();
@@ -39,11 +44,24 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             enemies = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    _wolfSettings.DetectionRadius,
-                    _wolfSettings.EnemiesLayers.value)
+                    AnimalSettings.DetectionRadius,
+                    AnimalSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
                 .ToArray();
             return enemies.Any();
+        }
+
+        private bool TryFindKillableEnemy(out Killable victim)
+        {
+            Transform[] enemies = Physics.OverlapSphere(
+                    AnimalInfo.AnimalTransform.position, 
+                    AnimalSettings.AttackDistance,
+                    AnimalSettings.EnemiesLayers.value)
+                .Select(collider => collider.transform)
+                .ToArray();
+            victim = enemies.FirstOrDefault()?.GetComponent<KillableComponent>().Killable;
+
+            return victim != null;
         }
     }
 }

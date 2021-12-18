@@ -5,21 +5,22 @@ namespace SteeringBehaviors.Animals.Settings
     [CreateAssetMenu(fileName = "RabbitSettings", menuName = "AnimalsSettings/RabbitSettings", order = 0)]
     public class RabbitSettings : ScriptableObject
     {
-        [Header("Rabbits settings")]
-        [SerializeField] private float _maxSpeed = 3f;
-        [SerializeField] private float _wanderingSpeed = 1f;
-        [SerializeField] private float _detectionRadius = 5f;
-        // [SerializeField] private LayerMask _enemiesLayers  = default;
-        [SerializeField] private float _safeDistance = 10f;
+        [Header("Speed parameters")]
+        [SerializeField] private float _maxSpeed = 10f;
+        [SerializeField] private float _wanderingSpeed = 5f;
+        
+        [Header("Detection circles")]
+        [SerializeField] private float _dangerDetectionRadius = 5f;
+        
+        [Header("Escaping parameters")]
+        [SerializeField] private float _escapingSafeDistance = 10f;
 
 
         public float MaxSpeed => _maxSpeed;
 
         public float WanderingSpeed => _wanderingSpeed;
-        public float DetectionRadius => _detectionRadius;
+        public float DangerDetectionRadius => _dangerDetectionRadius;
 
-        // public LayerMask EnemiesLayers => _enemiesLayers;
-
-        public float SafeDistance => _safeDistance;
+        public float EscapingSafeDistance => _escapingSafeDistance;
     }
 }

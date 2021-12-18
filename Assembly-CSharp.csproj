@@ -54,17 +54,22 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Animals\Animal.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\RabbitSettings.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Deer\DeerComponent.cs" />
      <Compile Include="Assets\Scripts\Import\ObjImportHelperWindow.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Rabbit\RabbitComponent.cs" />
      <Compile Include="Assets\Scripts\Hunt\Killable.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Hunt\KillableComponent.cs" />
      <Compile Include="Assets\Scripts\Animals\Rabbit\Rabbit.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\DeerSettings.cs" />
      <Compile Include="Assets\Scripts\Animals\AnimalInfo.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Animals\Wolf\WolfComponent.cs" />
      <Compile Include="Assets\Scripts\Animals\Wolf\Wolf.cs" />
      <Compile Include="Assets\Scripts\Movement\Range.cs" />
      <Compile Include="Assets\Scripts\Movement\SingleTokenCancellationGenerator.cs" />
      <Compile Include="Assets\Scripts\Import\ObjImportHelper.cs" />
      <Compile Include="Assets\Scripts\Movement\Mover.cs" />
      <Compile Include="Assets\Scripts\Animals\Settings\WolfSettings.cs" />
+     <Compile Include="Assets\Scripts\Generated\SteeringBehaviors\Movement\MoverComponent.cs" />
      <Compile Include="Assets\Scripts\Animals\Deer\Deer.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Program Files/Unity Versions/2020.3.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -714,9 +719,6 @@
       <Project>{44f8b4c3-08d0-ada5-953e-0d51befcb851}</Project>
       <Name>SourceGeneration</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Scripts\Generated\SteeringBehaviors\Hunt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
