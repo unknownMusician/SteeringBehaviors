@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#nullable enable
+
+using UnityEngine;
 using Action = System.Action;
 
 namespace SteeringBehaviors.GameLoop
@@ -6,22 +8,21 @@ namespace SteeringBehaviors.GameLoop
     public class Score
     {
         public readonly int WolvesToKillAmount;
-        public readonly int DeersToKillAmount;
+        public readonly int DeerToKillAmount;
         public readonly int RabbitsToKillAmount;
 
-        public event Action OnWolfKilled;
-        public event Action OnDeersKilled;
-        public event Action OnRabbitsKilled;
-
-
+        public event Action? OnWolfKilled;
+        public event Action? OnDeerKilled;
+        public event Action? OnRabbitsKilled;
+        
         public int WolvesKilledAmount { get; private set; }
-        public int DeersKilledAmount { get; private set; }
+        public int DeerKilledAmount { get; private set; }
         public int RabbitsKilledAmount { get; private set; }
 
-        public Score(int wolvesToKillAmount, int deersToKillAmount, int rabbitsToKillAmount)
+        public Score(int wolvesToKillAmount, int deerToKillAmount, int rabbitsToKillAmount)
         {
             WolvesToKillAmount = wolvesToKillAmount;
-            DeersToKillAmount = deersToKillAmount;
+            DeerToKillAmount = deerToKillAmount;
             RabbitsToKillAmount = rabbitsToKillAmount;
         }
 
@@ -33,8 +34,8 @@ namespace SteeringBehaviors.GameLoop
 
         public void HandleDeerKill()
         {
-            DeersKilledAmount++;
-            OnDeersKilled?.Invoke();
+            DeerKilledAmount++;
+            OnDeerKilled?.Invoke();
         }
 
         public void HandleRabbitKill()
@@ -43,16 +44,18 @@ namespace SteeringBehaviors.GameLoop
             OnRabbitsKilled?.Invoke();
         }
 
-        public static Score GetRandom(int wolfPrice,int deerPrice,int rabbitPrice,int neededPrice)
+        public static Score GetRandom(int wolfPrice, int deerPrice, int rabbitPrice, int neededPrice)
         {
             int wolvesToKill = 0;
-            int deersToKill = 0;
+            int deerToKill = 0;
             int rabbitsToKill = 0;
+            
             int totalPrice = 0;
 
             while (totalPrice < neededPrice)
             {
-                float randomNumber = Random.Range(0, 2);
+                int randomNumber = Random.Range(0, 2);
+                
                 const int wolfIndex = 0;
                 const int deerIndex = 1;
                 const int rabbitIndex = 2;
@@ -65,7 +68,7 @@ namespace SteeringBehaviors.GameLoop
                         break;
                     case deerIndex:
                         totalPrice += deerPrice;
-                        deersToKill++;
+                        deerToKill++;
                         break;
                     case rabbitIndex:
                         totalPrice += rabbitPrice;
@@ -76,8 +79,7 @@ namespace SteeringBehaviors.GameLoop
                 }
             }
 
-            return new Score(wolvesToKill, deersToKill, rabbitsToKill);
+            return new Score(wolvesToKill, deerToKill, rabbitsToKill);
         }
-
     }
 }

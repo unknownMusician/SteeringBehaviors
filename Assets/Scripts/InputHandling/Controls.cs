@@ -43,6 +43,14 @@ namespace SteeringBehaviors.InputHandling
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cc90b18-002e-4196-86bd-ba7967d6f7d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -78,6 +86,17 @@ namespace SteeringBehaviors.InputHandling
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ca50e38-75f8-47d6-93ff-cc6914b9952f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -89,6 +108,7 @@ namespace SteeringBehaviors.InputHandling
             m_Shooting_Aim = m_Shooting.FindAction("Aim", throwIfNotFound: true);
             m_Shooting_Shoot = m_Shooting.FindAction("Shoot", throwIfNotFound: true);
             m_Shooting_MousePosition = m_Shooting.FindAction("MousePosition", throwIfNotFound: true);
+            m_Shooting_Reload = m_Shooting.FindAction("Reload", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -141,6 +161,7 @@ namespace SteeringBehaviors.InputHandling
         private readonly InputAction m_Shooting_Aim;
         private readonly InputAction m_Shooting_Shoot;
         private readonly InputAction m_Shooting_MousePosition;
+        private readonly InputAction m_Shooting_Reload;
         public struct ShootingActions
         {
             private @Controls m_Wrapper;
@@ -148,6 +169,7 @@ namespace SteeringBehaviors.InputHandling
             public InputAction @Aim => m_Wrapper.m_Shooting_Aim;
             public InputAction @Shoot => m_Wrapper.m_Shooting_Shoot;
             public InputAction @MousePosition => m_Wrapper.m_Shooting_MousePosition;
+            public InputAction @Reload => m_Wrapper.m_Shooting_Reload;
             public InputActionMap Get() { return m_Wrapper.m_Shooting; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -166,6 +188,9 @@ namespace SteeringBehaviors.InputHandling
                     @MousePosition.started -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
                     @MousePosition.performed -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
                     @MousePosition.canceled -= m_Wrapper.m_ShootingActionsCallbackInterface.OnMousePosition;
+                    @Reload.started -= m_Wrapper.m_ShootingActionsCallbackInterface.OnReload;
+                    @Reload.performed -= m_Wrapper.m_ShootingActionsCallbackInterface.OnReload;
+                    @Reload.canceled -= m_Wrapper.m_ShootingActionsCallbackInterface.OnReload;
                 }
                 m_Wrapper.m_ShootingActionsCallbackInterface = instance;
                 if (instance != null)
@@ -179,6 +204,9 @@ namespace SteeringBehaviors.InputHandling
                     @MousePosition.started += instance.OnMousePosition;
                     @MousePosition.performed += instance.OnMousePosition;
                     @MousePosition.canceled += instance.OnMousePosition;
+                    @Reload.started += instance.OnReload;
+                    @Reload.performed += instance.OnReload;
+                    @Reload.canceled += instance.OnReload;
                 }
             }
         }
@@ -188,6 +216,7 @@ namespace SteeringBehaviors.InputHandling
             void OnAim(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
             void OnMousePosition(InputAction.CallbackContext context);
+            void OnReload(InputAction.CallbackContext context);
         }
     }
 }

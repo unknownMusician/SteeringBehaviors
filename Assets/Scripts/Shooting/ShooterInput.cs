@@ -59,6 +59,7 @@ namespace SteeringBehaviors.Shooting
             Controls.Shooting.Aim.performed += HandleStartAiming;
             Controls.Shooting.Aim.canceled += HandleStopAiming;
             Controls.Shooting.Shoot.performed += HandleShoot;
+            Controls.Shooting.Reload.performed += HandleShoot;
         }
 
         protected void DisableControls()
@@ -66,6 +67,7 @@ namespace SteeringBehaviors.Shooting
             Controls.Shooting.Aim.performed -= HandleStartAiming;
             Controls.Shooting.Aim.canceled -= HandleStopAiming;
             Controls.Shooting.Shoot.performed -= HandleShoot;
+            Controls.Shooting.Reload.performed -= HandleShoot;
 
             Controls.Disable();
         }
@@ -73,6 +75,7 @@ namespace SteeringBehaviors.Shooting
         protected virtual void HandleStartAiming(InputAction.CallbackContext context) => Shooter.StartAiming();
         protected virtual void HandleStopAiming(InputAction.CallbackContext context) => Shooter.StopAiming();
         protected virtual void HandleShoot(InputAction.CallbackContext context) => Shooter.TryShoot();
+        protected virtual void HandleReload(InputAction.CallbackContext context) => Shooter.TryReload();
 
         public virtual void Dispose()
         {

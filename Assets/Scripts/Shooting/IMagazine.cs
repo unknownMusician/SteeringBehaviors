@@ -3,14 +3,11 @@
     public interface IMagazine
     {
         void PickUpBullets(int amountOfBullets);
-        bool ReloadWeapon();
+        void ReloadWeapon();
         void DropBullets(int amountOfBullets);
 
         bool IsWeaponEmpty();
 
         bool IsStockEmpty();
-
-
     }
 }
-

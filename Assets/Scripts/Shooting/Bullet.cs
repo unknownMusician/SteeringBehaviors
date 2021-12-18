@@ -7,46 +7,43 @@ namespace SteeringBehaviors.Shooting
     [GenerateMonoBehaviour]
     public class Bullet : System.IDisposable
     {
-        private readonly Rigidbody _rigidbody;
-        private bool _isAlive;
-        private float _velocity;
-        private Transform _transform;
-        private GameObject _bulletObject;
+        protected readonly GameObject GameObject;
+        protected readonly Transform Transform;
+        protected readonly Rigidbody Rigidbody;
+        protected readonly float Velocity;
 
-        public Bullet(Rigidbody rigidbody,float velocity, Transform transform,GameObject bulletObject)
+        protected bool IsAlive;
+
+        public Bullet(GameObject gameObject, Transform transform, Rigidbody rigidbody, float velocity)
         {
-            _bulletObject = bulletObject;
-            _rigidbody = rigidbody;
-            _velocity = velocity;
-            _transform = transform;
+            GameObject = gameObject;
+            Transform = transform;
+            Rigidbody = rigidbody;
+            Velocity = velocity;
+
+            MoveAsync();
         }
 
-        public void Dispose()
+        protected async Task MoveAsync()
         {
-            _isAlive = false;
-        }
-
-        private async Task MoveAsync()
-        {
-            while (_isAlive)
+            while (IsAlive)
             {
-                _rigidbody.velocity = _velocity * _transform.forward;
+                Rigidbody.velocity = Velocity * Transform.forward;
+                
                 await Task.Yield();
             }
         }
 
         public void HandleCollisionEnter(GameObject gameObject)
         {
-         
-            if(gameObject.TryGetComponent(out IAnimal animal))
+            if (gameObject.TryGetComponent(out IAnimal animal))
             {
                 animal.Kill();
             }
 
-            Object.Destroy(_bulletObject);
-
-
+            Object.Destroy(GameObject);
         }
 
+        public void Dispose() => IsAlive = false;
     }
 }

@@ -1,69 +1,57 @@
-﻿namespace SteeringBehaviors.Shooting
+﻿#nullable enable
+
+using UnityEngine;
+
+namespace SteeringBehaviors.Shooting
 {
     public class Magazine : IMagazine
     {
-        public int AmountOfBulletsInStock {get; private set;}
-        public int AmountOfBulletsInWeapon {get; private set;}
-        public readonly int MaxAmountOfBulletsInWeapon;
+        public readonly int MaxBulletsInWeaponAmount;
         
-        public Magazine(int amountOfBulletsInStock, int amountOfBulletsInWeapon,int maxAmountOfBulletsInWeapon)
-        {
-            MaxAmountOfBulletsInWeapon = maxAmountOfBulletsInWeapon;
+        public int BulletsInStockAmount { get; private set; }
+        public int BulletsInWeaponAmount { get; private set; }
 
-            if(amountOfBulletsInWeapon > MaxAmountOfBulletsInWeapon)
+        public Magazine(int bulletsInStockAmount, int bulletsInWeaponAmount, int maxBulletsInWeaponAmount)
+        {
+            if (bulletsInWeaponAmount > MaxBulletsInWeaponAmount)
             {
-                throw new System.ArgumentException("Max amount of bullets in weapon is " + MaxAmountOfBulletsInWeapon);
+                throw new System.ArgumentException(
+                    "Max amount of bullets in weapon is " + MaxBulletsInWeaponAmount
+                );
             }
 
-            AmountOfBulletsInStock = amountOfBulletsInStock;
-            AmountOfBulletsInWeapon = amountOfBulletsInWeapon;
+            BulletsInStockAmount = bulletsInStockAmount;
+            BulletsInWeaponAmount = bulletsInWeaponAmount;
+            MaxBulletsInWeaponAmount = maxBulletsInWeaponAmount;
         }
 
         public void DropBullets(int amountOfDropBullets)
         {
-            if (!IsStockEmpty() && AmountOfBulletsInStock >= amountOfDropBullets)
+            if (BulletsInStockAmount >= amountOfDropBullets)
             {
-                AmountOfBulletsInStock -= amountOfDropBullets;
+                BulletsInStockAmount -= amountOfDropBullets;
             }
         }
 
+        public bool IsStockEmpty() => BulletsInStockAmount == 0;
 
-        public bool IsStockEmpty()
-        {
-            return (AmountOfBulletsInStock == 0);
-        }
+        public bool IsWeaponEmpty() => BulletsInWeaponAmount == 0;
 
-        public bool IsWeaponEmpty()
-        {
-            return (AmountOfBulletsInWeapon == 0);
-        }
-
-        private bool IsInStockMoreOrEqualThanMaxAmountOfBulletsInWeapon()
-        {
-            return AmountOfBulletsInStock >= MaxAmountOfBulletsInWeapon;
-            
-        }
-
-        public void PickUpBullets(int amountOfBullets)
-        {
-            AmountOfBulletsInStock += amountOfBullets;
-        }
+        public void PickUpBullets(int amountOfBullets) => BulletsInStockAmount += amountOfBullets;
 
         public void ReloadWeapon()
         {
-            if (!IsStockEmpty())
+            if (IsStockEmpty())
             {
-                int amountOfReloadedBullets = AmountOfBulletsInStock;
-                if (IsInStockMoreOrEqualThanMaxAmountOfBulletsInWeapon())
-                {
-                    amountOfReloadedBullets = MaxAmountOfBulletsInWeapon;
-                }
-
-                AmountOfBulletsInStock -= amountOfReloadedBullets;
-                AmountOfBulletsInWeapon += amountOfReloadedBullets;
-                
+                return;
             }
-        }
-    }   
-}
 
+            int neededBullets = MaxBulletsInWeaponAmount - BulletsInWeaponAmount;
+
+            int amountOfReloadedBullets = Mathf.Min(BulletsInStockAmount, neededBullets);
+
+            BulletsInStockAmount -= amountOfReloadedBullets;
+            BulletsInWeaponAmount += amountOfReloadedBullets;
+        }
+    }
+}

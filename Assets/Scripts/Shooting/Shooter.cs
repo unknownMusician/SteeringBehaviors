@@ -1,3 +1,5 @@
+#nullable enable
+
 using SteeringBehaviors.SourceGeneration;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,62 +9,51 @@ namespace SteeringBehaviors.Shooting
     [GenerateMonoBehaviour]
     public class Shooter : IShooter, System.IDisposable
     {
+        protected readonly Transform Transform;
+        protected readonly GameObject BulletPrefab;
+        protected readonly Vector3 Offset;
+        protected readonly IMagazine Magazine;
 
-        private Transform _transform;
-        private bool _isAlive;
-        private bool _isAiming;
-        private GameObject _bullet;
-        private Vector3 _offset;
-        private readonly IMagazine _magazine;
+        protected bool IsAlive;
+        protected bool IsAiming;
+
         public Vector3 AimPosition { set; protected get; }
 
-
-        public Shooter(Transform transform, GameObject bullet, Vector3 offset,IMagazine magazine)
+        public Shooter(Transform transform, GameObject bulletPrefab, Vector3 offset, IMagazine magazine)
         {
-            _offset = offset;
-            _transform = transform;
-            _bullet = bullet;
-            _magazine = magazine;
+            Transform = transform;
+            BulletPrefab = bulletPrefab;
+            Offset = offset;
+            Magazine = magazine;
+
+            AimAsync();
         }
 
-        private async Task AimAsync()
+        protected async Task AimAsync()
         {
-            while (_isAlive)
+            while (IsAlive)
             {
-                if (_isAiming)
+                if (IsAiming)
                 {
-                    _transform.rotation = Quaternion.LookRotation(AimPosition - _transform.position);
+                    Transform.rotation = Quaternion.LookRotation(AimPosition - Transform.position);
                 }
+
                 await Task.Yield();
             }
         }
 
-        public void StartAiming()
-        {
-            _isAiming = true;
-        }
-
-        public void StopAiming()
-        {
-            _isAiming = false;
-        }
+        public void StartAiming() => IsAiming = true;
+        public void StopAiming() => IsAiming = false;
 
         public void TryShoot()
         {
-            GameObject bulletInstance = Object.Instantiate(_bullet);
-            bulletInstance.transform.position = _transform.position + _offset;
-            bulletInstance.transform.rotation = _transform.rotation;
+            GameObject bullet = Object.Instantiate(BulletPrefab);
+
+            bullet.transform.SetPositionAndRotation(Transform.position + Offset, Transform.rotation);
         }
 
-        public void Dispose()
-        {
-            _isAlive = false;
-        }
+        public void TryReload() => Magazine.ReloadWeapon();
 
-        public void TryReload()
-        {
-            _magazine.ReloadWeapon();
-        }
+        public void Dispose() => IsAlive = false;
     }
 }
-

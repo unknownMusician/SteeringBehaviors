@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SteeringBehaviors.Shooting
+﻿namespace SteeringBehaviors.Shooting
 {
-    interface IAnimal
+    public interface IAnimal
     {
         void Kill();
     }
