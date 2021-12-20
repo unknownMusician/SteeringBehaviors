@@ -12,9 +12,6 @@ namespace SteeringBehaviors.Animals.Settings
         [Header("Detection circles")]
         [SerializeField] private float _dangerDetectionRadius = 10f;
         [SerializeField] private float _friendsDetectionRadius = 8f;
-        // [SerializeField] private float _separationRadius = 1f;
-        // [SerializeField] private float _cohesionRadius = 3f;
-        // [SerializeField] private float _groupDetectionRadius = 5f;
         
         [Header("Entity layers")]
         [SerializeField] private LayerMask _dangersLayers  = default;

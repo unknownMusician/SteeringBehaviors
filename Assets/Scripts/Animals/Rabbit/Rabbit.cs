@@ -12,15 +12,12 @@ namespace SteeringBehaviors.Animals.Rabbit
     [GenerateMonoBehaviour]
     public class Rabbit : Animal<RabbitSettings>
     {
-        // public readonly Killable Killable;
         public Rabbit(
             Mover mover,
-            // Killable killable,
             RabbitSettings rabbitSettings,
             [FromThisObject] Transform transform) : base(mover, transform, rabbitSettings)
         {
-            // Killable = transform.gameObject.AddComponent<KillableComponent>().Killable;
-            // Killable = killable;
+        
         }
 
         protected override async Task SeekForEntities()
@@ -34,7 +31,6 @@ namespace SteeringBehaviors.Animals.Rabbit
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
 
-                // Debug.Log(AnimalInfo.Mover.Dangers.Count);
                 await Task.Yield();
             }
         }

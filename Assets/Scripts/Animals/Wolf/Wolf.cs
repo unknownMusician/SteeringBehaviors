@@ -33,7 +33,7 @@ namespace SteeringBehaviors.Animals.Wolf
 
                 if (TryFindKillableEnemy(out Killable victim))
                 {
-                    victim.KillMe(1f);
+                    victim.KillMe();
                 }
                 
                 await Task.Yield();

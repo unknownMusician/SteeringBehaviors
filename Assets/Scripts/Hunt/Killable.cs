@@ -13,10 +13,10 @@ namespace SteeringBehaviors.Hunt
             _thisObject = transform.gameObject;
         }
 
-        public void KillMe(float deathDelay)
+        public void KillMe()
         {
             // todo stop killable target moving on death delay
-            Object.Destroy(_thisObject, deathDelay);
+            Object.Destroy(_thisObject);
         }
     }
 }
