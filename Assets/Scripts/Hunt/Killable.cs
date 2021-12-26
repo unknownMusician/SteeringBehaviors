@@ -15,7 +15,6 @@ namespace SteeringBehaviors.Hunt
 
         public void KillMe()
         {
-            // todo stop killable target moving on death delay
             Object.Destroy(_thisObject);
         }
     }

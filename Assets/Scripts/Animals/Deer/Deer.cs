@@ -20,18 +20,18 @@ namespace SteeringBehaviors.Animals.Deer
         
         protected override async Task SeekForEntities()
         {
-            Transform[] friends;
-            Transform[] dangers;
+            // Transform[] friends;
+            // Transform[] dangers;
             while (IsAlive)
             {
                 AnimalInfo.Mover.Friends.Clear();
-                if (TryFindFriends(out friends))
+                if (TryFindFriends(out Transform[] friends))
                 {
                     AnimalInfo.Mover.Friends.AddRange(friends);
                 }
                 
                 AnimalInfo.Mover.Dangers.Clear();
-                if (TryFindDangers(out dangers))
+                if (TryFindDangers(out Transform[] dangers))
                 {
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }

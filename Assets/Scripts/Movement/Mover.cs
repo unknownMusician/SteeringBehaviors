@@ -99,7 +99,7 @@ namespace SteeringBehaviors.Movement
 
             if (goalDirection != Vector3.zero)
             {
-                Movable.rotation = Quaternion.LookRotation(goalDirection, Vector3.up);
+                Movable.rotation = Quaternion.LookRotation(-goalDirection, Vector3.up);
             }
         }
 

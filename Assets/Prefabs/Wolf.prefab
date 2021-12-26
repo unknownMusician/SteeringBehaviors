@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 3206388072133478420}
   - component: {fileID: 2793501588772611198}
   - component: {fileID: 2407264781483245249}
-  - component: {fileID: 8563997032906742838}
+  - component: {fileID: 689522809538244855}
+  - component: {fileID: 689522809538244853}
+  - component: {fileID: 689522809538244854}
+  - component: {fileID: 6054485412261736844}
   m_Layer: 8
   m_Name: Wolf
   m_TagString: Untagged
@@ -86,7 +89,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8563997032906742838
+--- !u!65 &689522809538244855
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7957129974960142819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0.050000012}
+--- !u!114 &689522809538244853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,45 +111,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 7957129974960142819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8a860e0adaf3643913ba659de4991f, type: 3}
+  m_Script: {fileID: 11500000, guid: fcedeeec4ad09e34c87a4addf2989b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _movable: {fileID: 3206388072133478420}
-  _maxSpeed: 9
+  _maxSpeed: 5
   _impactInfos:
     Wander:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
         Max: 0
     EscapeEnemy:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
         Max: 0
     PursuePrey:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
-        Max: 0
+        Max: 10
     FollowFriend:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
         Max: 0
     EscapeFriend:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
-        Max: 0
+        Max: 0.5
     KeepBounds:
-      Priority: 0
+      Priority: 1
       Distance:
         Min: 0
-        Max: 0
+        Max: 2
   _bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 35, y: 0, z: 35}
+    m_Extent: {x: 9.37, y: 0, z: 9.37}
   _dangers: []
   _preys: []
   _friends: []
+--- !u!114 &689522809538244854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7957129974960142819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66d09f4c91d4804db06e38b84f429f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 689522809538244853}
+  _wolfSettings: {fileID: 11400000, guid: ad8b6240f5e099344bdc7b8b6edf9031, type: 2}
+--- !u!114 &6054485412261736844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7957129974960142819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b49faa4a7994234f8504d0a2cf836da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

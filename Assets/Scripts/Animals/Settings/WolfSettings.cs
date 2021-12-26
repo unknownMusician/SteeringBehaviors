@@ -11,9 +11,11 @@ namespace SteeringBehaviors.Animals.Settings
         
         [Header("Detection circles")]
         [SerializeField] private float _detectionRadius = 8f;
+        [SerializeField] private float _friendsDetectionRadius = 1f;
         
         [Header("Entity layers")]
         [SerializeField] private LayerMask _enemiesLayers  = default;
+        [SerializeField] private LayerMask _friendsLayers  = default;
 
         [Header("Pursuit parameters")]
         [SerializeField] private float _attackDistance = 1f;
@@ -39,5 +41,9 @@ namespace SteeringBehaviors.Animals.Settings
         public float MaxPursuitTime => _maxPursuitTime;
 
         public float PreyLostDistance => _preyLostDistance;
+
+        public float FriendsDetectionRadius => _friendsDetectionRadius;
+
+        public LayerMask FriendsLayers => _friendsLayers;
     }
 }

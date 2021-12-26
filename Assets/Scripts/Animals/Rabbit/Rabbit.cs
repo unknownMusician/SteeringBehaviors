@@ -1,8 +1,6 @@
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.Animals.Settings;
-using SteeringBehaviors.Hunt;
 using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
@@ -22,11 +20,11 @@ namespace SteeringBehaviors.Animals.Rabbit
 
         protected override async Task SeekForEntities()
         {
-            Transform[] dangers;
+            // Transform[] dangers;
             while (IsAlive)
             {
                 AnimalInfo.Mover.Dangers.Clear();
-                if (TryFindDangers(out dangers))
+                if (TryFindDangers(out Transform[] dangers))
                 {
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }

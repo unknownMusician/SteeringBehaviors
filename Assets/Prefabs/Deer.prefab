@@ -11,6 +11,18 @@ GameObject:
   - component: {fileID: 8199458873967691353}
   - component: {fileID: 918246510510567502}
   - component: {fileID: 3527293923953088875}
+  - component: {fileID: 2157466257483010840}
+  - component: {fileID: 2157466257483010839}
+  - component: {fileID: 2157466257483010841}
+  - component: {fileID: 2157466257483010845}
+  - component: {fileID: 1172792387}
+  - component: {fileID: 1172792384}
+  - component: {fileID: 1172792385}
+  - component: {fileID: 1172792386}
+  - component: {fileID: 1561126350}
+  - component: {fileID: 1561126347}
+  - component: {fileID: 1561126348}
+  - component: {fileID: 1561126349}
   m_Layer: 7
   m_Name: Deer
   m_TagString: Untagged
@@ -85,3 +97,273 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2157466257483010840
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.6, z: 1.4000001}
+  m_Center: {x: 0, y: 0.8, z: -0.099999994}
+--- !u!114 &2157466257483010839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddcb8610a216f840ae201e1322fa66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 2157466257483010841}
+  _deerSettings: {fileID: 11400000, guid: 829061f7b66e64840a2724e30c463ce4, type: 2}
+--- !u!114 &2157466257483010841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcedeeec4ad09e34c87a4addf2989b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movable: {fileID: 8199458873967691353}
+  _maxSpeed: 4
+  _impactInfos:
+    Wander:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    EscapeEnemy:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    PursuePrey:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 5
+    EscapeFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 2
+    KeepBounds:
+      Priority: 2
+      Distance:
+        Min: 0
+        Max: 1
+  _bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 9.37, y: 0, z: 9.37}
+  _dangers: []
+  _preys: []
+  _friends: []
+--- !u!114 &2157466257483010845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b49faa4a7994234f8504d0a2cf836da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1172792387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.6, z: 1.4000001}
+  m_Center: {x: 0, y: 0.8, z: -0.099999994}
+--- !u!114 &1172792384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b49faa4a7994234f8504d0a2cf836da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1172792385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcedeeec4ad09e34c87a4addf2989b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movable: {fileID: 8199458873967691353}
+  _maxSpeed: 8
+  _impactInfos:
+    Wander:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    EscapeEnemy:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    PursuePrey:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 2
+    EscapeFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 5
+    KeepBounds:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 0
+  _bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  _dangers: []
+  _preys: []
+  _friends: []
+--- !u!114 &1172792386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddcb8610a216f840ae201e1322fa66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 1172792385}
+  _deerSettings: {fileID: 11400000, guid: 829061f7b66e64840a2724e30c463ce4, type: 2}
+--- !u!65 &1561126350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.6, z: 1.4000001}
+  m_Center: {x: 0, y: 0.8, z: -0.099999994}
+--- !u!114 &1561126347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b49faa4a7994234f8504d0a2cf836da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1561126348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcedeeec4ad09e34c87a4addf2989b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movable: {fileID: 8199458873967691353}
+  _maxSpeed: 8
+  _impactInfos:
+    Wander:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    EscapeEnemy:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 10
+    PursuePrey:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 2
+    EscapeFriend:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 5
+    KeepBounds:
+      Priority: 1
+      Distance:
+        Min: 0
+        Max: 0
+  _bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  _dangers: []
+  _preys: []
+  _friends: []
+--- !u!114 &1561126349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddcb8610a216f840ae201e1322fa66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 1561126348}
+  _deerSettings: {fileID: 11400000, guid: 829061f7b66e64840a2724e30c463ce4, type: 2}
