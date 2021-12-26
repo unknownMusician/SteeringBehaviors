@@ -33,7 +33,7 @@ namespace SteeringBehaviors.Animals.Deer
                 AnimalInfo.Mover.Dangers.Clear();
                 if (TryFindDangers(out dangers))
                 {
-                    AnimalInfo.Mover.Friends.AddRange(dangers);
+                    AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
                 
                 await Task.Yield();
