@@ -8,26 +8,22 @@ namespace SteeringBehaviors
     {
 
         [SerializeField] private Text _ammoCounterText;
-        private IMagazine _magazine;
-        private IShooter _shooter;
+        private Magazine _magazine;
+        private Shooter _shooter;
 
         public void Intialize(Magazine magazine,Shooter shooter)
         {
             _magazine = magazine;
             _shooter = shooter;
-
-            
+            _shooter.OnShot += HandleChange;
+            _shooter.OnReload += HandleChange;
+            HandleChange();
 
         }
 
-        public void HandleShot()
+        public void HandleChange()
         {
-            
-        }
-
-        public void HanldeReload()
-        {
-
+            _ammoCounterText.text = $"{_magazine.BulletsInStockAmount}/{_magazine.BulletsInWeaponAmount}";
         }
 
     }
