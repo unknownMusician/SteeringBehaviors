@@ -59,7 +59,7 @@ namespace SteeringBehaviors.Shooting
             Controls.Shooting.Aim.performed += HandleStartAiming;
             Controls.Shooting.Aim.canceled += HandleStopAiming;
             Controls.Shooting.Shoot.performed += HandleShoot;
-            Controls.Shooting.Reload.performed += HandleShoot;
+            Controls.Shooting.Reload.performed += HandleReload;
         }
 
         protected void DisableControls()
@@ -67,7 +67,7 @@ namespace SteeringBehaviors.Shooting
             Controls.Shooting.Aim.performed -= HandleStartAiming;
             Controls.Shooting.Aim.canceled -= HandleStopAiming;
             Controls.Shooting.Shoot.performed -= HandleShoot;
-            Controls.Shooting.Reload.performed -= HandleShoot;
+            Controls.Shooting.Reload.performed -= HandleReload;
 
             Controls.Disable();
         }

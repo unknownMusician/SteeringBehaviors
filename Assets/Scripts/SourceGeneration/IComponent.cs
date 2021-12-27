@@ -1,8 +1,15 @@
-﻿namespace SteeringBehaviors.SourceGeneration
+﻿using UnityEngine;
+
+namespace SteeringBehaviors.SourceGeneration
 {
     public interface IComponent<out T>
     {
         T HeldType { get; }
+    }
+
+    public interface ITriggerEnterHandler
+    {
+        void OnTriggerEnter(Collider other);
     }
 }
 

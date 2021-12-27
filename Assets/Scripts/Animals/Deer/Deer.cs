@@ -13,7 +13,7 @@ namespace SteeringBehaviors.Animals.Deer
         private readonly DeerSettings _deerSettings;
 
         public Deer(
-            Mover mover,
+            AnimalMover mover,
             DeerSettings deerSettings,
             [FromThisObject] Transform transform) : base(mover, transform, deerSettings)
         {

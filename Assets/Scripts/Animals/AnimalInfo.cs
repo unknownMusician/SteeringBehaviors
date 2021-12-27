@@ -6,11 +6,11 @@ namespace SteeringBehaviors.Animals
 {
     public class AnimalInfo
     {
-        public readonly Mover Mover;
+        public readonly AnimalMover Mover;
         public readonly Transform AnimalTransform;
         // public Transform[] EnemiesTransforms;
 
-        public AnimalInfo(Mover mover, Transform animalTransform)
+        public AnimalInfo(AnimalMover mover, Transform animalTransform)
         {
             Mover = mover;
             AnimalTransform = animalTransform;

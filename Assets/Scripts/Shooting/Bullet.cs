@@ -5,16 +5,16 @@ using UnityEngine;
 namespace SteeringBehaviors.Shooting
 {
     [GenerateMonoBehaviour]
-    public class Bullet : System.IDisposable
+    public class Bullet : System.IDisposable, ITriggerEnterHandler
     {
         protected readonly GameObject GameObject;
         protected readonly Transform Transform;
         protected readonly Rigidbody Rigidbody;
         protected readonly float Velocity;
 
-        protected bool IsAlive;
+        protected bool IsAlive = true;
 
-        public Bullet(GameObject gameObject, Transform transform, Rigidbody rigidbody, float velocity)
+        public Bullet([FromThisObject] GameObject gameObject, [FromThisObject] Transform transform, Rigidbody rigidbody, float velocity)
         {
             GameObject = gameObject;
             Transform = transform;
@@ -34,9 +34,9 @@ namespace SteeringBehaviors.Shooting
             }
         }
 
-        public void HandleCollisionEnter(GameObject gameObject)
+        public void OnTriggerEnter(Collider collider)
         {
-            if (gameObject.TryGetComponent(out IAnimal animal))
+            if (collider.gameObject.TryGetComponent(out IAnimal animal))
             {
                 animal.Kill();
             }

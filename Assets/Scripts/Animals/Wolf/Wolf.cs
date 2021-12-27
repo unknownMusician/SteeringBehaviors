@@ -13,7 +13,7 @@ namespace SteeringBehaviors.Animals.Wolf
         private readonly WolfSettings _wolfSettings;
         
         public Wolf(
-            Mover mover,
+            AnimalMover mover,
             WolfSettings wolfSettings,
             [FromThisObject] Transform transform) : base(mover, transform, wolfSettings) 
         {

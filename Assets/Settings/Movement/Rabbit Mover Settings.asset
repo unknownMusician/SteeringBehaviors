@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9d5353e9ca42c2ac5321497dec262e, type: 3}
+  m_Name: Rabbit Mover Settings
+  m_EditorClassIdentifier: Assembly-CSharp:Generated.SteeringBehaviors.Movement:AnimalMoverSettings
+  <MaxSpeed>k__BackingField: 0
+  <ImpactInfos>k__BackingField:
+    Wander:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeEnemy:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    PursuePrey:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    FollowFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    EscapeFriend:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+    KeepBounds:
+      Priority: 0
+      Distance:
+        Min: 0
+        Max: 0
+  <Bounds>k__BackingField:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}

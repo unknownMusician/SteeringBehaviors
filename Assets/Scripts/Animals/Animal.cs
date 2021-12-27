@@ -12,7 +12,7 @@ namespace SteeringBehaviors.Animals
         protected readonly TSettings AnimalSettings;
 
         protected Animal(
-            Mover mover,
+            AnimalMover mover,
             Transform transform,
             TSettings animalSettings)
         {

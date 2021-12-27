@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UnityEngine;
+using Object = System.Object;
 
 namespace SteeringBehaviors.SourceGeneration
 {
@@ -66,18 +68,19 @@ namespace SteeringBehaviors.SourceGeneration
         }
 
         public virtual string GenerateMonoBehaviour(
-            string @namespace, string typeName, bool isDisposable, ParameterInfo[] fields,
+            string @namespace, string typeName, bool isDisposable, bool isTriggerEnterHandler, ParameterInfo[] fields,
             ParameterInfo[] parameters
         ) => GenerateMonoBehaviour(
             @namespace,
             typeName,
             isDisposable,
+            isTriggerEnterHandler,
             GetParametersAsFields(fields),
             GetParametersAsInvocationParameters(parameters)
         );
 
         public virtual string GenerateMonoBehaviour(
-            string @namespace, string typeName, bool isDisposable, string fields, string parameters
+            string @namespace, string typeName, bool isDisposable, bool isTriggerEnterHandler, string fields, string parameters
         )
         {
             return $@"// Generated
@@ -91,7 +94,12 @@ namespace Generated.{@namespace}
         private void Awake()
         {{
             HeldType = new global::{@namespace}.{typeName}({parameters});
-        }}{(!isDisposable ? string.Empty : $@"
+        }}{(!isTriggerEnterHandler ? string.Empty : $@"
+            
+        private void OnTriggerEnter(global::UnityEngine.Collider other)
+        {{
+            HeldType.OnTriggerEnter(other);
+        }}")}{(!isDisposable ? string.Empty : $@"
 
         private void OnDestroy()
         {{
@@ -138,6 +146,7 @@ namespace Generated.{@namespace}
                 type.Namespace!,
                 type.Name,
                 typeof(IDisposable).IsAssignableFrom(type),
+                typeof(ITriggerEnterHandler).IsAssignableFrom(type),
                 constructorParameters,
                 constructorParameters
             );
@@ -185,7 +194,15 @@ namespace Generated.{@namespace}
 
             if (parameter.TryGetCustomAttribute(out FromThisObjectAttribute? fromThisObjectAttribute))
             {
-                if (fromThisObjectAttribute!.GetSpecificType)
+                if (parameter.ParameterType == typeof(GameObject))
+                {
+                    parameterName = "gameObject";
+                }
+                else if (parameter.ParameterType == typeof(Transform))
+                {
+                    parameterName = "transform";
+                }
+                else if (fromThisObjectAttribute!.GetSpecificType)
                 {
                     parameterName = $"GetComponent<{_util.GetAliasName(parameterType)}>()";
                 }

@@ -11,7 +11,7 @@ namespace SteeringBehaviors.Animals.Rabbit
     public class Rabbit : Animal<RabbitSettings>
     {
         public Rabbit(
-            Mover mover,
+            AnimalMover mover,
             RabbitSettings rabbitSettings,
             [FromThisObject] Transform transform) : base(mover, transform, rabbitSettings)
         {

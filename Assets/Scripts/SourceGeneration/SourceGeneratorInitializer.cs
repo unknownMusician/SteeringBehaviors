@@ -6,10 +6,16 @@ using UnityEditor;
 
 namespace SteeringBehaviors.SourceGeneration
 {
-    [InitializeOnLoad]
+    //[InitializeOnLoad]
     internal static class SourceGeneratorInitializer
     {
         static SourceGeneratorInitializer()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += Start;
+            Start();
+        }
+
+        private static void Start()
         {
             new SourceGenerator(new FileWriter(), new SourceGeneratorUtil()).Inspect(AssemblyHelper.GameAssembly);
         }

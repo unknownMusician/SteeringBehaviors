@@ -8,7 +8,7 @@ namespace SteeringBehaviors.SourceGeneration
     // todo: struct?
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class GenerateMonoBehaviourAttribute : PreserveAttribute { }
-
+    
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class FromThisObjectAttribute : PreserveAttribute
     {
