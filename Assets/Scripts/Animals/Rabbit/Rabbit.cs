@@ -37,7 +37,8 @@ namespace SteeringBehaviors.Animals.Rabbit
         {
             dangers = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position,
-                    AnimalSettings.DangerDetectionRadius)
+                    AnimalSettings.DangerDetectionRadius,
+                    AnimalSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();

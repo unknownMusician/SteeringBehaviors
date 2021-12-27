@@ -12,6 +12,9 @@ namespace SteeringBehaviors.Animals.Settings
         [Header("Detection circles")]
         [SerializeField] private float _dangerDetectionRadius = 5f;
         
+        [Header("Entity layers")]
+        [SerializeField] private LayerMask _enemiesLayers  = default;
+        
         [Header("Escaping parameters")]
         [SerializeField] private float _escapingSafeDistance = 10f;
 
@@ -22,5 +25,7 @@ namespace SteeringBehaviors.Animals.Settings
         public float DangerDetectionRadius => _dangerDetectionRadius;
 
         public float EscapingSafeDistance => _escapingSafeDistance;
+
+        public LayerMask EnemiesLayers => _enemiesLayers;
     }
 }
