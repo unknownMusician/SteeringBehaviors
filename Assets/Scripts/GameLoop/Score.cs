@@ -14,7 +14,7 @@ namespace SteeringBehaviors.GameLoop
         public event Action? OnWolfKilled;
         public event Action? OnDeerKilled;
         public event Action? OnRabbitsKilled;
-        
+
         public int WolvesKilledAmount { get; private set; }
         public int DeerKilledAmount { get; private set; }
         public int RabbitsKilledAmount { get; private set; }
@@ -49,13 +49,13 @@ namespace SteeringBehaviors.GameLoop
             int wolvesToKill = 0;
             int deerToKill = 0;
             int rabbitsToKill = 0;
-            
+
             int totalPrice = 0;
 
             while (totalPrice < neededPrice)
             {
                 int randomNumber = Random.Range(0, 3);
-                
+
                 const int wolfIndex = 0;
                 const int deerIndex = 1;
                 const int rabbitIndex = 2;
@@ -65,17 +65,19 @@ namespace SteeringBehaviors.GameLoop
                     case wolfIndex:
                         totalPrice += wolfPrice;
                         wolvesToKill++;
+
                         break;
                     case deerIndex:
                         totalPrice += deerPrice;
                         deerToKill++;
+
                         break;
                     case rabbitIndex:
                         totalPrice += rabbitPrice;
                         rabbitsToKill++;
+
                         break;
-                    default:
-                        throw new System.ArgumentOutOfRangeException();
+                    default: throw new System.ArgumentOutOfRangeException();
                 }
             }
 

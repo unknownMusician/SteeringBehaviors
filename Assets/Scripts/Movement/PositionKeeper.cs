@@ -15,7 +15,10 @@ namespace SteeringBehaviors.Movement
 
         private void LateUpdate()
         {
-            transform.position = _target.position + _localPosition;
+            if (_target != null)
+            {
+                transform.position = _target.position + _localPosition;
+            }
         }
     }
 }
