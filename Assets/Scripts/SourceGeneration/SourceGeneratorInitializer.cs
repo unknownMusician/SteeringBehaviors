@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 
+#if UNITY_EDITOR
 namespace SteeringBehaviors.SourceGeneration
 {
     //[InitializeOnLoad]
@@ -30,3 +31,4 @@ namespace SteeringBehaviors.SourceGeneration
                                                                 );
     }
 }
+#endif
