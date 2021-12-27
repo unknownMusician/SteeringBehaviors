@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6639881810377125589}
   - component: {fileID: 478137685337657569}
   - component: {fileID: 8763358436486518962}
+  - component: {fileID: 5523365650566648242}
   m_Layer: 6
   m_Name: Rabbit
   m_TagString: Untagged
@@ -111,3 +112,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mover: {fileID: 478137685337657569}
   _rabbitSettings: {fileID: 11400000, guid: db8b53eeb0c47b545b6d08d62f72e167, type: 2}
+--- !u!135 &5523365650566648242
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8009557454031923703}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35000002
+  m_Center: {x: 0, y: 0.3, z: -0.049999997}

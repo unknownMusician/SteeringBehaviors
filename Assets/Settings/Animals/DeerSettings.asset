@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7774491a59b4db8881a1c204819cc06, type: 3}
   m_Name: DeerSettings
   m_EditorClassIdentifier: 
-  _deerVelocity: 1
-  _deerDetectionRadius: 13
-  _deerDetectionLayers:
+  _maxSpeed: 3
+  _wanderingSpeed: 1
+  _detectionRadius: 5
+  _separationRadius: 1
+  _cohesionRadius: 3
+  _enemiesLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
+  _deerGroupLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  _escapingSafeDistance: 10

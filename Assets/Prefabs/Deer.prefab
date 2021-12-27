@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 8199458873967691353}
   - component: {fileID: 918246510510567502}
   - component: {fileID: 3527293923953088875}
+  - component: {fileID: 965477323230454058}
+  - component: {fileID: 2552481528596566435}
+  - component: {fileID: 7197268023132158907}
   m_Layer: 7
   m_Name: Deer
   m_TagString: Untagged
@@ -85,3 +88,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &965477323230454058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fd1af702d42454094e811e2755daee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 652d3a753724cc648b80878138a9aa5c, type: 2}
+--- !u!114 &2552481528596566435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079160aff3a1a7f4392b4dd37a514ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 965477323230454058}
+  _deerSettings: {fileID: 11400000, guid: 829061f7b66e64840a2724e30c463ce4, type: 2}
+--- !u!135 &7197268023132158907
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0.8, z: 0.099999994}

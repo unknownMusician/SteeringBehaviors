@@ -10,8 +10,6 @@ namespace SteeringBehaviors.Animals.Wolf
     [GenerateMonoBehaviour]
     public sealed class Wolf : Animal<WolfSettings>
     {
-        private readonly WolfSettings _wolfSettings;
-        
         public Wolf(
             AnimalMover mover,
             WolfSettings wolfSettings,
@@ -39,8 +37,8 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             enemies = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    _wolfSettings.DetectionRadius,
-                    _wolfSettings.EnemiesLayers.value)
+                    AnimalSettings.DetectionRadius,
+                    AnimalSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
                 .ToArray();
             return enemies.Any();

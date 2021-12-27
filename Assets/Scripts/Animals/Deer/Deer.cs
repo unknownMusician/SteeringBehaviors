@@ -10,8 +10,6 @@ namespace SteeringBehaviors.Animals.Deer
     [GenerateMonoBehaviour]
     public sealed class Deer : Animal<DeerSettings>
     {
-        private readonly DeerSettings _deerSettings;
-
         public Deer(
             AnimalMover mover,
             DeerSettings deerSettings,
@@ -35,7 +33,7 @@ namespace SteeringBehaviors.Animals.Deer
                 if (TryFindDangers(out dangers))
                 {
                     AnimalInfo.Mover.Dangers.Clear();
-                    AnimalInfo.Mover.Friends.AddRange(dangers);
+                    AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
                 
                 await Task.Yield();
@@ -46,8 +44,8 @@ namespace SteeringBehaviors.Animals.Deer
         {
             enemies = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    _deerSettings.DetectionRadius,
-                    _deerSettings.EnemiesLayers)
+                    AnimalSettings.DetectionRadius,
+                    AnimalSettings.EnemiesLayers)
                 .Select(collider => collider.transform)
                 .ToArray();
             
@@ -58,8 +56,8 @@ namespace SteeringBehaviors.Animals.Deer
         {
             nearestDeer = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    _deerSettings.CohesionRadius,
-                    _deerSettings.DeerGroupLayers)
+                    AnimalSettings.CohesionRadius,
+                    AnimalSettings.DeerGroupLayers)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();
