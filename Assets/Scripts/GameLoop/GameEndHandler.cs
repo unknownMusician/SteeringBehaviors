@@ -17,7 +17,8 @@ namespace SteeringBehaviors.GameLoop
         private bool _isGameEnded = false;
         private int _totalPointsToEndGame;
         private Score _score;
-        public void Intialize(Score score)
+        
+        public void Initialize(Score score)
         {
             _score = score;
             _totalPointsToEndGame = score.DeerToKillAmount + score.RabbitsKilledAmount + score.WolvesToKillAmount;
