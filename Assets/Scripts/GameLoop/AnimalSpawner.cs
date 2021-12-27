@@ -35,9 +35,9 @@ namespace SteeringBehaviors.GameLoop
                 GameObject animal = Instantiate(prefab);
 
                 animal.transform.position = new Vector3(
-                    Random.Range(_fieldBounds.min.x, _fieldBounds.min.y),
+                    Random.Range(_fieldBounds.min.x, _fieldBounds.max.x),
                     0.0f,
-                    Random.Range(_fieldBounds.max.x, _fieldBounds.max.y)
+                    Random.Range(_fieldBounds.min.z, _fieldBounds.max.z)
                 );
 
                 Killable killable = animal.GetComponent<KillableComponent>().HeldType;

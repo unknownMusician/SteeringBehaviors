@@ -3,6 +3,7 @@
 using SteeringBehaviors.SourceGeneration;
 using System;
 using System.Threading.Tasks;
+using Generated.SteeringBehaviors.Shooting;
 using UnityEngine;
 
 namespace SteeringBehaviors.Shooting
@@ -38,7 +39,9 @@ namespace SteeringBehaviors.Shooting
             {
                 if (IsAiming)
                 {
-                    Transform.rotation = Quaternion.LookRotation(AimPosition - Transform.position);
+                    Vector3 lookDirection = AimPosition - Transform.position;
+                    
+                    Transform.rotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0.0f, lookDirection.z));
                 }
 
                 await Task.Yield();
@@ -56,7 +59,7 @@ namespace SteeringBehaviors.Shooting
             }
 
             GameObject bullet = UnityEngine.Object.Instantiate(BulletPrefab);
-
+            bullet.GetComponent<BulletComponent>().HeldType.Initialize(Transform.gameObject);
             bullet.transform.SetPositionAndRotation(Transform.position + Offset, Transform.rotation);
             
             Magazine.HandleShoot(1);

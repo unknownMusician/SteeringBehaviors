@@ -10,12 +10,14 @@ namespace SteeringBehaviors.GameLoop
         [SerializeField] private int _wolfPrice;
         [SerializeField] private int _scorePrice;
         [SerializeField] private KillsCounterUI _scoreUI;
-        private Score Score;
+        [SerializeField] private AnimalSpawner _spawner;
+        private Score _score;
 
         private void Awake()
         {
-            Score = Score.GetRandom(_wolfPrice, _deerPrice, _rabbitPrice, _scorePrice);
-            _scoreUI.Initialize(Score);
+            _score = Score.GetRandom(_wolfPrice, _deerPrice, _rabbitPrice, _scorePrice);
+            _scoreUI.Initialize(_score);
+            _spawner.StartSpawning(_score);
         }
     }
 }

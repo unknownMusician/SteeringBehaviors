@@ -24,7 +24,7 @@ MonoBehaviour:
       Priority: 1
       Distance:
         Min: 2
-        Max: 5
+        Max: 3.5
     FollowFriend:
       Priority: 1
       Distance:

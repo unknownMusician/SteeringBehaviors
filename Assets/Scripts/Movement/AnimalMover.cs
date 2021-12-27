@@ -1,10 +1,12 @@
 ﻿#nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SteeringBehaviors.Movement
 {
@@ -154,7 +156,6 @@ namespace SteeringBehaviors.Movement
 
         protected virtual Vector3 GetWanderingImpact()
         {
-            Debug.Log(WanderDirection);
             return ImpactInfos.WanderPriority * WanderDirection;
         }
 

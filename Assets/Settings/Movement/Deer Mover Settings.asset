@@ -16,10 +16,10 @@ MonoBehaviour:
   <ImpactInfos>k__BackingField:
     WanderPriority: 0.5
     EscapeEnemy:
-      Priority: 1
+      Priority: 3
       Distance:
-        Min: 2
-        Max: 5
+        Min: 1
+        Max: 10
     PursuePrey:
       Priority: 1
       Distance:

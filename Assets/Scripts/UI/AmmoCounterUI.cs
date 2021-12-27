@@ -13,7 +13,7 @@ namespace SteeringBehaviors
         private Shooter _shooter;
         private IMagazine _magazine;
 
-        public void Awake()
+        public void Start()
         {
             _shooter = _shooterComponent.HeldType;
             _magazine = _shooter.Magazine;
@@ -24,7 +24,7 @@ namespace SteeringBehaviors
 
         public void HandleChange()
         {
-            _ammoCounterText.text = $"{_magazine.BulletsInStockAmount}/{_magazine.BulletsInWeaponAmount}";
+            _ammoCounterText.text = $"{_magazine.BulletsInWeaponAmount}/{_magazine.BulletsInStockAmount}";
         }
     }
 }
