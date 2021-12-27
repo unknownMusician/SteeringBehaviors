@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SteeringBehaviors
 {
-    public class AmmoCounter
+    public class AmmoCounterUI
     {
 
         [SerializeField] private Text _ammoCounterText;
