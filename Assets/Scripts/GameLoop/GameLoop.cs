@@ -24,7 +24,12 @@ namespace SteeringBehaviors.GameLoop
             _gameEndHandler.Initialize(_score);
         }
 
-        public void Restart() => SceneManager.LoadScene(0);
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
+            Time.timeScale = 1.0f;
+        }
+
         public void Exit() => Application.Quit();
     }
 }
