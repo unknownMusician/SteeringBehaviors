@@ -1,6 +1,7 @@
 #nullable enable
 
 using SteeringBehaviors.SourceGeneration;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace SteeringBehaviors.Shooting
         protected readonly GameObject BulletPrefab;
         protected readonly Vector3 Offset;
         protected readonly IMagazine Magazine;
+        public event Action? OnShot;
+        public event Action? OnReload;
 
         protected bool IsAlive = true;
         protected bool IsAiming;
@@ -52,11 +55,23 @@ namespace SteeringBehaviors.Shooting
                 return;
             }
 
-            GameObject bullet = Object.Instantiate(BulletPrefab);
+            GameObject bullet = UnityEngine.Object.Instantiate(BulletPrefab);
 
             bullet.transform.SetPositionAndRotation(Transform.position + Offset, Transform.rotation);
             
             Magazine.HandleShoot(1);
+        }
+
+        public void HandleShot()
+        {
+            TryShoot();
+            OnShot?.Invoke();
+        }
+
+        public void HandleReload()
+        {
+            TryReload();
+            OnReload?.Invoke();
         }
 
         public void TryReload() => Magazine.ReloadWeapon();
