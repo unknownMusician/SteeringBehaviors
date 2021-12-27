@@ -1,4 +1,3 @@
-using SteeringBehaviors.Movement;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
 
@@ -8,20 +7,15 @@ namespace SteeringBehaviors.Hunt
     public sealed class Killable
     {
         private readonly GameObject _thisObject;
-        private Mover _mover;
         
-        public Killable(
-            [FromThisObject] GameObject thisObject, 
-            [FromThisObject] Mover mover)
+        public Killable([FromThisObject] Transform transform)
         {
-            _thisObject = thisObject;
-            _mover = mover;
+            _thisObject = transform.gameObject;
         }
 
-        public void KillMe(float deathDelay)
+        public void KillMe()
         {
-            // todo stop killable target moving on death delay
-            Object.Destroy(_thisObject, deathDelay);
+            Object.Destroy(_thisObject);
         }
     }
 }

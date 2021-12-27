@@ -15,10 +15,14 @@ MonoBehaviour:
   _maxSpeed: 1
   _wanderingSpeed: 0.5
   _detectionRadius: 7
+  _friendsDetectionRadius: 1
   _enemiesLayers:
     serializedVersion: 2
     m_Bits: 704
-  _attackDistance: 0.2
-  _lifetimeWithoutKills: 60
+  _friendsLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  _attackDistance: 0.4
   _maxPursuitTime: 10
   _preyLostDistance: 6
+  _lifetimeWithoutKills: 60

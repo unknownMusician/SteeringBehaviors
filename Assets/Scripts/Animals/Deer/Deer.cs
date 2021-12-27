@@ -11,7 +11,7 @@ namespace SteeringBehaviors.Animals.Deer
     public sealed class Deer : Animal<DeerSettings>
     {
         public Deer(
-            AnimalMover mover,
+            Mover mover,
             DeerSettings deerSettings,
             [FromThisObject] Transform transform) : base(mover, transform, deerSettings)
         {
@@ -20,19 +20,19 @@ namespace SteeringBehaviors.Animals.Deer
         
         protected override async Task SeekForEntities()
         {
-            Transform[] friends;
-            Transform[] dangers;
+            // Transform[] friends;
+            // Transform[] dangers;
             while (IsAlive)
             {
-                if (TryFindFriends(out friends))
+                AnimalInfo.Mover.Friends.Clear();
+                if (TryFindFriends(out Transform[] friends))
                 {
-                    AnimalInfo.Mover.Friends.Clear();
                     AnimalInfo.Mover.Friends.AddRange(friends);
                 }
                 
-                if (TryFindDangers(out dangers))
+                AnimalInfo.Mover.Dangers.Clear();
+                if (TryFindDangers(out Transform[] dangers))
                 {
-                    AnimalInfo.Mover.Dangers.Clear();
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
                 
@@ -44,8 +44,8 @@ namespace SteeringBehaviors.Animals.Deer
         {
             enemies = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    AnimalSettings.DetectionRadius,
-                    AnimalSettings.EnemiesLayers)
+                    AnimalSettings.DangerDetectionRadius,
+                    AnimalSettings.DangersLayers)
                 .Select(collider => collider.transform)
                 .ToArray();
             
@@ -56,8 +56,8 @@ namespace SteeringBehaviors.Animals.Deer
         {
             nearestDeer = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position, 
-                    AnimalSettings.CohesionRadius,
-                    AnimalSettings.DeerGroupLayers)
+                    AnimalSettings.FriendsDetectionRadius,
+                    AnimalSettings.FriendsLayers)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();

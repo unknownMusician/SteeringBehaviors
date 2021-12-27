@@ -15,21 +15,20 @@ namespace SteeringBehaviors.Animals.Rabbit
             RabbitSettings rabbitSettings,
             [FromThisObject] Transform transform) : base(mover, transform, rabbitSettings)
         {
-            
+        
         }
 
         protected override async Task SeekForEntities()
         {
-            Transform[] dangers;
+            // Transform[] dangers;
             while (IsAlive)
             {
-                if (TryFindDangers(out dangers))
+                AnimalInfo.Mover.Dangers.Clear();
+                if (TryFindDangers(out Transform[] dangers))
                 {
-                    AnimalInfo.Mover.Dangers.Clear();
                     AnimalInfo.Mover.Dangers.AddRange(dangers);
                 }
 
-                Debug.Log(AnimalInfo.Mover.Dangers.Count);
                 await Task.Yield();
             }
         }
@@ -38,7 +37,8 @@ namespace SteeringBehaviors.Animals.Rabbit
         {
             dangers = Physics.OverlapSphere(
                     AnimalInfo.AnimalTransform.position,
-                    AnimalSettings.DetectionRadius)
+                    AnimalSettings.DangerDetectionRadius,
+                    AnimalSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
                 .Where(transform => transform != AnimalInfo.AnimalTransform)
                 .ToArray();
