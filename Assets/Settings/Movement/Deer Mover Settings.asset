@@ -14,16 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:Generated.SteeringBehaviors.Movement:AnimalMoverSettings
   <MaxSpeed>k__BackingField: 8
   <ImpactInfos>k__BackingField:
-    Wander:
-      Priority: 1
-      Distance:
-        Min: 2
-        Max: 5
+    WanderPriority: 0.5
     EscapeEnemy:
-      Priority: 1
+      Priority: 3
       Distance:
-        Min: 2
-        Max: 5
+        Min: 1
+        Max: 10
     PursuePrey:
       Priority: 1
       Distance:
@@ -46,4 +42,5 @@ MonoBehaviour:
         Max: 5
   <Bounds>k__BackingField:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 10, y: 0, z: 10}
+    m_Extent: {x: 30, y: 0, z: 30}
+  <WanderPeriod>k__BackingField: 1

@@ -5,7 +5,7 @@ namespace SteeringBehaviors.Movement
     [Serializable]
     public struct MoveImpactInfos
     {
-        public MoveImpactInfo Wander;
+        public float WanderPriority;
         public MoveImpactInfo EscapeEnemy;
         public MoveImpactInfo PursuePrey;
         public MoveImpactInfo FollowFriend;

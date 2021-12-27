@@ -40,7 +40,7 @@ namespace SteeringBehaviors.Movement
 
             if (direction != Vector3.zero)
             {
-                Movable.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                Movable.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.z), Vector3.up);
             }
         }
 

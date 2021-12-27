@@ -8,5 +8,6 @@ namespace Generated.SteeringBehaviors.Movement
         [field: SerializeField] public float MaxSpeed { get; protected set; }
         [field: SerializeField] public global::SteeringBehaviors.Movement.MoveImpactInfos ImpactInfos { get; protected set; }
         [field: SerializeField] public Bounds Bounds { get; protected set; }
+        [field: SerializeField, Min(0.1f)] public float WanderPeriod { get; protected set; } = 1.0f;
     }
 }

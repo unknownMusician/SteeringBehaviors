@@ -54,7 +54,7 @@ namespace SteeringBehaviors.GameLoop
 
             while (totalPrice < neededPrice)
             {
-                int randomNumber = Random.Range(0, 2);
+                int randomNumber = Random.Range(0, 3);
                 
                 const int wolfIndex = 0;
                 const int deerIndex = 1;

@@ -3,6 +3,7 @@
 using SteeringBehaviors.SourceGeneration;
 using System;
 using System.Threading.Tasks;
+using Generated.SteeringBehaviors.Shooting;
 using UnityEngine;
 
 namespace SteeringBehaviors.Shooting
@@ -13,7 +14,7 @@ namespace SteeringBehaviors.Shooting
         protected readonly Transform Transform;
         protected readonly GameObject BulletPrefab;
         protected readonly Vector3 Offset;
-        protected readonly IMagazine Magazine;
+        public readonly IMagazine Magazine;
         public event Action? OnShot;
         public event Action? OnReload;
 
@@ -38,7 +39,9 @@ namespace SteeringBehaviors.Shooting
             {
                 if (IsAiming)
                 {
-                    Transform.rotation = Quaternion.LookRotation(AimPosition - Transform.position);
+                    Vector3 lookDirection = AimPosition - Transform.position;
+                    
+                    Transform.rotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0.0f, lookDirection.z));
                 }
 
                 await Task.Yield();
@@ -56,25 +59,20 @@ namespace SteeringBehaviors.Shooting
             }
 
             GameObject bullet = UnityEngine.Object.Instantiate(BulletPrefab);
-
+            bullet.GetComponent<BulletComponent>().HeldType.Initialize(Transform.gameObject);
             bullet.transform.SetPositionAndRotation(Transform.position + Offset, Transform.rotation);
             
             Magazine.HandleShoot(1);
-        }
-
-        public void HandleShot()
-        {
-            TryShoot();
+            
             OnShot?.Invoke();
         }
 
-        public void HandleReload()
+        public void TryReload()
         {
-            TryReload();
+            Magazine.ReloadWeapon();
+            
             OnReload?.Invoke();
         }
-
-        public void TryReload() => Magazine.ReloadWeapon();
 
         public void Dispose() => IsAlive = false;
     }

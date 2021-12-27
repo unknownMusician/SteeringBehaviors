@@ -1,30 +1,30 @@
-﻿using SteeringBehaviors.Shooting;
+﻿using Generated.SteeringBehaviors.Shooting;
+using SteeringBehaviors.Shooting;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SteeringBehaviors
 {
-    public class AmmoCounterUI
+    public class AmmoCounterUI : MonoBehaviour
     {
-
         [SerializeField] private Text _ammoCounterText;
-        private Magazine _magazine;
-        private Shooter _shooter;
+        [SerializeField] private ShooterComponent _shooterComponent;
 
-        public void Intialize(Magazine magazine,Shooter shooter)
+        private Shooter _shooter;
+        private IMagazine _magazine;
+
+        public void Start()
         {
-            _magazine = magazine;
-            _shooter = shooter;
+            _shooter = _shooterComponent.HeldType;
+            _magazine = _shooter.Magazine;
             _shooter.OnShot += HandleChange;
             _shooter.OnReload += HandleChange;
             HandleChange();
-
         }
 
         public void HandleChange()
         {
-            _ammoCounterText.text = $"{_magazine.BulletsInStockAmount}/{_magazine.BulletsInWeaponAmount}";
+            _ammoCounterText.text = $"{_magazine.BulletsInWeaponAmount}/{_magazine.BulletsInStockAmount}";
         }
-
     }
 }

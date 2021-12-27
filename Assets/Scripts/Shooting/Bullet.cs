@@ -1,5 +1,6 @@
 ﻿using SteeringBehaviors.SourceGeneration;
 using System.Threading.Tasks;
+using Generated.SteeringBehaviors.Hunt;
 using UnityEngine;
 
 namespace SteeringBehaviors.Shooting
@@ -11,6 +12,7 @@ namespace SteeringBehaviors.Shooting
         protected readonly Transform Transform;
         protected readonly Rigidbody Rigidbody;
         protected readonly float Velocity;
+        protected GameObject _owner;
 
         protected bool IsAlive = true;
 
@@ -24,6 +26,8 @@ namespace SteeringBehaviors.Shooting
             MoveAsync();
         }
 
+        public void Initialize(GameObject owner) => _owner = owner;
+
         protected async Task MoveAsync()
         {
             while (IsAlive)
@@ -36,9 +40,9 @@ namespace SteeringBehaviors.Shooting
 
         public void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.TryGetComponent(out IAnimal animal))
+            if (collider.gameObject.TryGetComponent(out KillableComponent killableComponent))
             {
-                animal.Kill();
+                killableComponent.HeldType.KillMe(_owner);
             }
 
             Object.Destroy(GameObject);
