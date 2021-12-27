@@ -11,7 +11,7 @@ namespace SteeringBehaviors.Animals.Deer
     public sealed class Deer : Animal<DeerSettings>
     {
         public Deer(
-            Mover mover,
+            AnimalMover mover,
             DeerSettings deerSettings,
             [FromThisObject] Transform transform) : base(mover, transform, deerSettings)
         {

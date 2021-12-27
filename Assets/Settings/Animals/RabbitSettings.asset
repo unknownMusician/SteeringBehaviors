@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSpeed: 1.5
   _wanderingSpeed: 0.5
-  _detectionRadius: 5
-  _safeDistance: 10
+  _dangerDetectionRadius: 5
+  _enemiesLayers:
+    serializedVersion: 2
+    m_Bits: 960
+  _escapingSafeDistance: 10

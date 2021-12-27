@@ -18,7 +18,7 @@ MonoBehaviour:
   _friendsDetectionRadius: 8
   _dangersLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   _friendsLayers:
     serializedVersion: 2
     m_Bits: 128

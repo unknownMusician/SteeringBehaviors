@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 965477323230454058}
   - component: {fileID: 2552481528596566435}
   - component: {fileID: 7197268023132158907}
+  - component: {fileID: 7647528148458479300}
   m_Layer: 7
   m_Name: Deer
   m_TagString: Untagged
@@ -128,3 +129,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0.8, z: 0.099999994}
+--- !u!114 &7647528148458479300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907604411457322274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03153762cfc65ec43b43ae7d7f7ec1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

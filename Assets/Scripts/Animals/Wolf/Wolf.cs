@@ -16,13 +16,13 @@ namespace SteeringBehaviors.Animals.Wolf
         private readonly Killable _killable;
         private DateTime _lastKillTime;
         public Wolf(
-            Mover mover,
+            AnimalMover mover,
             WolfSettings wolfSettings,
             [FromThisObject] Transform transform,
-            [FromThisObject] KillableComponent killable) : base(mover, transform, wolfSettings)
+            [FromThisObject] Killable killable) : base(mover, transform, wolfSettings)
         {
             _lastKillTime = DateTime.Now;
-            _killable = killable.Killable;
+            _killable = killable;
         }
         
         protected override async Task SeekForEntities()
@@ -89,7 +89,7 @@ namespace SteeringBehaviors.Animals.Wolf
                     AnimalSettings.EnemiesLayers.value)
                 .Select(collider => collider.transform)
                 .ToArray();
-            victim = enemies.FirstOrDefault()?.GetComponent<KillableComponent>().Killable;
+            victim = enemies.FirstOrDefault()?.GetComponent<KillableComponent>().HeldType;
 
             return victim != null;
         }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9d5353e9ca42c2ac5321497dec262e, type: 3}
   m_Name: Rabbit Mover Settings
   m_EditorClassIdentifier: Assembly-CSharp:Generated.SteeringBehaviors.Movement:AnimalMoverSettings
-  <MaxSpeed>k__BackingField: 10
+  <MaxSpeed>k__BackingField: 15
   <ImpactInfos>k__BackingField:
     Wander:
       Priority: 1

@@ -20,10 +20,10 @@ namespace SteeringBehaviors.Animals.Rabbit
 
         protected override async Task SeekForEntities()
         {
-            // Transform[] dangers;
             while (IsAlive)
             {
                 AnimalInfo.Mover.Dangers.Clear();
+                
                 if (TryFindDangers(out Transform[] dangers))
                 {
                     AnimalInfo.Mover.Dangers.AddRange(dangers);

@@ -25,8 +25,7 @@ namespace SteeringBehaviors.Movement
         public readonly List<Transform> Friends = new List<Transform>();
 
         public AnimalMover(
-            [FromThisObject] Transform movable, float maxSpeed, MoveImpactInfos impactInfos,
-            Bounds bounds
+            [FromThisObject] Transform movable, float maxSpeed, MoveImpactInfos impactInfos, Bounds bounds
         ) : base(movable, maxSpeed)
         {
             ImpactInfos = impactInfos;
@@ -41,30 +40,31 @@ namespace SteeringBehaviors.Movement
             IEnumerable<Transform> dangers, IEnumerable<Transform> preys, IEnumerable<Transform> friends
         )
         {
-            //Vector3 dangerPosition = GetAveragePosition(dangers);
-            //Vector3 preysPosition = GetAveragePosition(preys);
-            //Vector3 friendsPosition = GetAveragePosition(friends);
-
             Vector3 goalDirection = Vector3.zero;
 
             foreach (Transform danger in dangers)
             {
-                //goalDirection += GetDangerImpact(danger.position);
-                goalDirection += -GetImpactTo(danger.position, ImpactInfos.EscapeEnemy, Normalizers.Inverse);
+                if (danger != null)
+                {
+                    goalDirection += -GetImpactTo(danger.position, ImpactInfos.EscapeEnemy, Normalizers.Inverse);
+                }
             }
 
             foreach (Transform prey in preys)
             {
-                //goalDirection += GetPreyImpact(prey.position);
-                goalDirection += GetImpactTo(prey.position, ImpactInfos.PursuePrey, Normalizers.PermanentMax);
+                if (prey != null)
+                {
+                    goalDirection += GetImpactTo(prey.position, ImpactInfos.PursuePrey, Normalizers.PermanentMax);
+                }
             }
 
             foreach (Transform friend in friends)
             {
-                //goalDirection += GetPreyImpact(friend.position);
-                //goalDirection += GetDangerImpact(friend.position);
-                goalDirection += GetImpactTo(friend.position, ImpactInfos.FollowFriend, Normalizers.Default);
-                goalDirection += -GetImpactTo(friend.position, ImpactInfos.EscapeFriend, Normalizers.Inverse);
+                if (friend != null)
+                {
+                    goalDirection += GetImpactTo(friend.position, ImpactInfos.FollowFriend, Normalizers.Default);
+                    goalDirection += -GetImpactTo(friend.position, ImpactInfos.EscapeFriend, Normalizers.Inverse);
+                }
             }
 
             goalDirection += GetBoundsImpact(Bounds);
