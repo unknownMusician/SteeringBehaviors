@@ -2,10 +2,5 @@
 
 namespace SteeringBehaviors
 {
-   
-    public enum Animal
-    {
-        Rabbit,Deer,Wolf
-    }
-
+    public enum Animal { Rabbit, Deer, Wolf, }
 }

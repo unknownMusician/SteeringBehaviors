@@ -8,14 +8,13 @@ namespace SteeringBehaviors
 {
     public class KillsCounterUI : MonoBehaviour
     {
-
         [SerializeField] private Text _deerToKillText;
         [SerializeField] private Text _rabbitsToKillText;
         [SerializeField] private Text _wolvesToKillText;
         private Score _score;
-        public void Intialize(Score score)
-        {
 
+        public void Initialize(Score score)
+        {
             _score = score;
             score.OnDeerKilled += () => HandleKill(Animal.Deer);
             score.OnRabbitsKilled += () => HandleKill(Animal.Rabbit);
@@ -31,12 +30,17 @@ namespace SteeringBehaviors
             {
                 case Animal.Deer:
                     _deerToKillText.text = $"Deer to kill {_score.DeerKilledAmount} / {_score.DeerToKillAmount}";
+
                     break;
                 case Animal.Rabbit:
-                    _rabbitsToKillText.text = $"Rabbits to kill {_score.RabbitsKilledAmount} / {_score.RabbitsToKillAmount}";
+                    _rabbitsToKillText.text =
+                        $"Rabbits to kill {_score.RabbitsKilledAmount} / {_score.RabbitsToKillAmount}";
+
                     break;
                 case Animal.Wolf:
-                    _wolvesToKillText.text = $"Wolves to kill {_score.WolvesKilledAmount} / {_score.WolvesToKillAmount}";
+                    _wolvesToKillText.text =
+                        $"Wolves to kill {_score.WolvesKilledAmount} / {_score.WolvesToKillAmount}";
+
                     break;
             }
         }

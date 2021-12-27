@@ -13,7 +13,7 @@ namespace SteeringBehaviors.Shooting
         protected readonly Transform Transform;
         protected readonly GameObject BulletPrefab;
         protected readonly Vector3 Offset;
-        protected readonly IMagazine Magazine;
+        public readonly IMagazine Magazine;
         public event Action? OnShot;
         public event Action? OnReload;
 
@@ -60,21 +60,16 @@ namespace SteeringBehaviors.Shooting
             bullet.transform.SetPositionAndRotation(Transform.position + Offset, Transform.rotation);
             
             Magazine.HandleShoot(1);
-        }
-
-        public void HandleShot()
-        {
-            TryShoot();
+            
             OnShot?.Invoke();
         }
 
-        public void HandleReload()
+        public void TryReload()
         {
-            TryReload();
+            Magazine.ReloadWeapon();
+            
             OnReload?.Invoke();
         }
-
-        public void TryReload() => Magazine.ReloadWeapon();
 
         public void Dispose() => IsAlive = false;
     }

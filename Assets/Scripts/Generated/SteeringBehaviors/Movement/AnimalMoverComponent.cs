@@ -10,7 +10,7 @@ namespace Generated.SteeringBehaviors.Movement
 
         private void Awake()
         {
-            HeldType = new global::SteeringBehaviors.Movement.AnimalMover(transform, _settings.MaxSpeed, _settings.ImpactInfos, _settings.Bounds);
+            HeldType = new global::SteeringBehaviors.Movement.AnimalMover(transform, _settings.MaxSpeed, _settings.ImpactInfos, _settings.Bounds, _settings.WanderPeriod);
         }
 
         private void OnDestroy()

@@ -2,6 +2,9 @@
 {
     public interface IMagazine
     {
+        int BulletsInStockAmount { get; }
+        int BulletsInWeaponAmount { get; }
+
         bool IsWeaponEmpty { get; }
         bool IsStockEmpty { get; }
         

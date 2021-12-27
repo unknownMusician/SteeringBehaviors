@@ -43,7 +43,7 @@ namespace SteeringBehaviors.Animals.Wolf
                 
                 if (TryFindKillableEnemy(out Killable victim))
                 {
-                    victim.KillMe();
+                    victim.KillMe(AnimalInfo.AnimalTransform.gameObject);
                     _lastKillTime = DateTime.Now;
                     AnimalInfo.Mover.Preys.Clear();
                 }
@@ -98,7 +98,7 @@ namespace SteeringBehaviors.Animals.Wolf
         {
             if ((DateTime.Now - _lastKillTime).Seconds > AnimalSettings.LifetimeWithoutKills)
             {
-                _killable.KillMe();
+                _killable.KillMe(AnimalInfo.AnimalTransform.gameObject);
             }
         }
     }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SteeringBehaviors.SourceGeneration;
 using UnityEngine;
 
@@ -19,19 +22,45 @@ namespace SteeringBehaviors.Movement
 
         protected readonly MoveImpactInfos ImpactInfos;
         protected readonly Bounds Bounds;
+        protected readonly float WanderPeriod;
 
         public readonly List<Transform> Dangers = new List<Transform>();
         public readonly List<Transform> Preys = new List<Transform>();
         public readonly List<Transform> Friends = new List<Transform>();
 
+        protected Vector3 WanderDirection = Vector3.right;
+
         public AnimalMover(
-            [FromThisObject] Transform movable, float maxSpeed, MoveImpactInfos impactInfos, Bounds bounds
+            [FromThisObject] Transform movable, float maxSpeed, MoveImpactInfos impactInfos, Bounds bounds, float wanderPeriod
         ) : base(movable, maxSpeed)
         {
             ImpactInfos = impactInfos;
             Bounds = bounds;
+            WanderPeriod = wanderPeriod;
 
+            CalculateWanderDirectionAsync();
             MoveAsync();
+        }
+
+        protected virtual async Task CalculateWanderDirectionAsync()
+        {
+            while (IsAlive)
+            {
+                Vector3 oldWanderDirection = WanderDirection;
+                Vector2 insideUnitCircle = Random.insideUnitCircle;
+                Vector3 newWanderDirection = new Vector3(insideUnitCircle.x, 0.0f, insideUnitCircle.y).normalized;
+                float t = 0;
+
+                while (t < 1.0f && IsAlive)
+                {
+                    WanderDirection = Vector3.Slerp(oldWanderDirection, newWanderDirection, t);
+                    
+                    t += Time.deltaTime * WanderPeriod;
+                    await Task.Yield();
+                }
+
+                WanderDirection = newWanderDirection;
+            }
         }
 
         protected override void MoveFrame() => MoveFrame(Dangers, Preys, Friends);
@@ -40,7 +69,7 @@ namespace SteeringBehaviors.Movement
             IEnumerable<Transform> dangers, IEnumerable<Transform> preys, IEnumerable<Transform> friends
         )
         {
-            Vector3 goalDirection = Vector3.zero;
+            Vector3 goalDirection = GetWanderingImpact();
 
             foreach (Transform danger in dangers)
             {
@@ -121,6 +150,12 @@ namespace SteeringBehaviors.Movement
                             );
 
             return ImpactInfos.KeepBounds.Priority * Vector3.ClampMagnitude(distance01, 1.0f);
+        }
+
+        protected virtual Vector3 GetWanderingImpact()
+        {
+            Debug.Log(WanderDirection);
+            return ImpactInfos.WanderPriority * WanderDirection;
         }
 
         protected Vector3 GetAveragePosition(IEnumerable<Transform> transforms)
